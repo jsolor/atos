@@ -2,6 +2,7 @@ function Profile() {
 
     return (
         <>
+            Profile
         </>
     );
 }

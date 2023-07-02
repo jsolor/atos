@@ -2,6 +2,7 @@ function Settings() {
 
     return (
         <>
+            Settings
         </>
     );
 }

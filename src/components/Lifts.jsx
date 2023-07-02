@@ -2,6 +2,7 @@ function Lifts() {
 
     return (
         <>
+            Lifts
         </>
     );
 }

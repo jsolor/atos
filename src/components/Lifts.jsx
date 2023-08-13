@@ -1,76 +1,111 @@
-function Lifts() {
+import { useEffect, useState } from 'react';
 
-    return (
-        <>
-            <div className="overflow-x-auto">
-                <table className="table table-sm table-pin-rows table-pin-cols">
-                    <thead>
-                        <tr>
-                            <th></th> 
-                            <td>Lift</td> 
-                            <td>Weight</td> 
-                            <td>Sets</td>
-                            <td>Reps</td>
-                            <td>Rep Out</td> 
-                        </tr>
-                    </thead> 
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>DeadLift</td> 
-                            <td>280</td> 
-                            <td>
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                            </td>  
-                            <td>4</td> 
-                            <td>
-                                <input type="text" placeholder="Type here" className="input input-bordered input-sm w-full max-w-xs" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Overhead Press</td> 
-                            <td>100</td> 
-                            <td>
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                            </td> 
-                            <td>4</td> 
-                            <td>
-                                <input type="text" placeholder="Type here" className="input input-bordered input-sm w-full max-w-xs" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td> 
-                            <td>Pulldowns</td> 
-                            <td>75</td> 
-                            <td>
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                                <input type="checkbox" className="checkbox checkbox-sm checkbox-success" />
-                            </td> 
-                            <td>8</td> 
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>
-                                <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                                    <path d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z"/>
-                                    <path d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z"/>
-                                </svg>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </>
-    );
+import sampleTMs from '../../sampleData/trainingMaxes.json';
+import sampleSchedules from '../../sampleData/schedules.json';
+import sampleReps from '../../sampleData/reps.json';
+import sampleRecords from '../../sampleData/records.json';
+
+function Lift({ name, weight, reps, target, lastSet }) {
+  return (
+    <tr>
+      <td></td>
+      <td>{name}</td>
+      <td>{weight}</td>
+      <td>{reps}</td>
+      <td>{target}</td>
+      <td>
+        <input type="checkbox" className="rounded-none"/>
+        <input type="checkbox" className="rounded-none"/>
+        <input type="checkbox" className="rounded-none"/>
+        <input type="checkbox" className="rounded-none"/>
+      </td>
+      <td>
+        <input type="text" placeholder="reps completed on last set" className="input input-ghost w-full max-w-xs" />
+      </td>
+    </tr>
+  );
+}
+
+function Lifts() {
+  const primary = 'primary';
+  const auxiliary = 'auxiliary';
+  const routine = 'x6';
+  const day = 0;
+  const week = 0;
+  const [daysLifts, setDaysLifts] = useState(sampleRecords.weeks[week].days[day]);
+
+  useEffect(() => {
+    console.log(daysLifts);
+  }, [daysLifts]);
+
+  /*
+  // generates values for a new routine
+  useEffect(() => {
+    //
+    // TODO: 
+    //  reduce redundant code
+    //
+    for (let week = 0; week < sampleReps.primary.intensity.length; week++) {
+      console.log('----------------------------------------------------------------------------------')
+      console.log("WEAK ", week + 1);
+      for (const day in sampleSchedules[routine]) {
+        console.log(`day ${Number(day) + 1}: `);
+        if (primary in sampleSchedules[routine][day]) {
+          const primaryLifts = sampleSchedules[routine][day][primary];
+          for (const lift of primaryLifts) {
+            const weight = sampleReps[primary]['intensity'][week] * sampleTMs[primary][lift];
+            const reps = sampleReps[primary]['reps'][week];
+            const target = sampleReps[primary]['lastSet'][week];
+            console.log(`${lift} @ ${weight} for 4x${reps} & 1x${target}`);
+          }
+        }
+        if (auxiliary in sampleSchedules[routine][day]) {
+          const auxiliaryLifts = sampleSchedules[routine][day][auxiliary];
+          for (const lift of auxiliaryLifts) {
+            const weight = sampleReps[auxiliary]['intensity'][week] * sampleTMs[auxiliary][lift];
+            const reps = sampleReps[auxiliary]['reps'][week] * sampleTMs[auxiliary][lift];
+            const target = sampleReps[auxiliary]['lastSet'][week] * sampleTMs[auxiliary][lift];
+            console.log(`${lift} @ ${weight} for 4x${reps} & 1x${target}`);
+          }
+        }
+      }
+    }
+  }, []);
+  */
+
+  return (
+    <div className="overflow-x-auto">
+
+      <table className="table table-zebra">
+
+        <thead>
+          <tr>
+            <th></th>
+            <th>Lift</th>
+            <th>Weight</th>
+            <th>Reps</th>
+            <th>Last Set Target</th>
+            <th>Sets</th>
+            <th>Actual</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {Object.keys(daysLifts).map((lift) =>  (
+            <Lift 
+              name={lift} 
+              weight={daysLifts[lift].weight} 
+              reps={daysLifts[lift].reps} 
+              target={daysLifts[lift].target} 
+              lastSet={daysLifts[lift].lastSet}  
+            />
+          ))}          
+        </tbody>
+
+      </table>
+
+    </div>
+  );
 }
 
 export default Lifts;

@@ -1,0 +1,148 @@
+{
+  "x3": [
+    {
+      "primary": [
+        "squat"
+      ],
+      "auxiliary": [
+        "trapDeadlift",
+        "inclineBench"
+      ]
+    },
+    {
+      "primary": [
+        "bench",
+        "overheadPress"
+      ],
+      "auxiliary": [
+        "squat"
+      ]
+    },
+    {
+      "primary": [
+        "deadlift"
+      ],
+      "auxiliary": [
+        "inclineBench",
+        "pausedSquat",
+        "overheadPress"
+      ]
+    }
+  ],
+  "x4": [
+    {
+      "primary": [
+        "squat"
+      ],
+      "auxiliary": [
+        "inclineBench",
+        "trapDeadlift"
+      ]
+    },
+    {
+      "primary": [
+        "bench"
+      ],
+      "auxiliary": [
+        "squat",
+        "overheadPress"
+      ]
+    },
+    {
+      "primary": [
+        "deadlift"
+      ],
+      "auxiliary": [
+        "inclineBench"
+      ]
+    },
+    {
+      "primary": [
+        "overheadPress"
+      ],
+      "auxiliary": [
+        "pausedSquat"
+      ]
+    }
+  ],
+  "x5": [
+    {
+      "primary": [
+        "squat"
+      ],
+      "auxiliary": [
+        "overheadPress"
+      ]
+    },
+    {
+      "primary": [
+        "bench"
+      ],
+      "auxiliary": [
+        "squat"
+      ]
+    },
+    {
+      "primary": [
+        "deadlift"
+      ],
+      "auxiliary": [
+        "inclineBench"
+      ]
+    },
+    {
+      "primary": [
+        "overheadPress"
+      ],
+      "auxiliary": [
+        "pausedSquat"
+      ]
+    },
+    {
+      "auxiliary": [
+        "inclineBench",
+        "trapDeadlift"
+      ]
+    }
+  ],
+  "x6": [
+    {
+      "primary": [
+        "squat"
+      ],
+      "auxiliary": [
+        "inclineBench"
+      ]
+    },
+    {
+      "auxiliary": [
+        "overheadPress",
+        "trapDeadlift"
+      ]
+    },
+    {
+      "primary": [
+        "bench"
+      ],
+      "auxiliary": [
+        "squat"
+      ]
+    },
+    {
+      "auxiliary": [
+        "inclineBench",
+        "pausedSquat"
+      ]
+    },
+    {
+      "primary": [
+        "deadlift"
+      ]
+    },
+    {
+      "primary": [
+        "overheadPress"
+      ]
+    }
+  ]
+}

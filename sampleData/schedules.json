@@ -1,148 +1,82 @@
 {
-  "x3": [
+  "3x": [
     {
-      "primary": [
-        "squat"
-      ],
-      "auxiliary": [
-        "trapDeadlift",
-        "inclineBench"
-      ]
+      "primary": [ 0 ],
+      "auxiliary": [ 3, 4 ]
     },
     {
-      "primary": [
-        "bench",
-        "overheadPress"
-      ],
-      "auxiliary": [
-        "squat"
-      ]
+      "primary": [ 1, 3 ],
+      "auxiliary": [ 0 ]
     },
     {
-      "primary": [
-        "deadlift"
-      ],
-      "auxiliary": [
-        "inclineBench",
-        "pausedSquat",
-        "overheadPress"
-      ]
+      "primary": [ 2 ],
+      "auxiliary": [ 2, 1, 5 ]
     }
   ],
-  "x4": [
+  "4x": [
     {
-      "primary": [
-        "squat"
-      ],
-      "auxiliary": [
-        "inclineBench",
-        "trapDeadlift"
-      ]
+      "primary": [ 0 ],
+      "auxiliary": [ 3, 4 ]
     },
     {
-      "primary": [
-        "bench"
-      ],
-      "auxiliary": [
-        "squat",
-        "overheadPress"
-      ]
+      "primary": [ 1 ],
+      "auxiliary": [ 0, 5 ]
     },
     {
-      "primary": [
-        "deadlift"
-      ],
-      "auxiliary": [
-        "inclineBench"
-      ]
+      "primary": [ 2 ],
+      "auxiliary": [ 2 ]
     },
     {
-      "primary": [
-        "overheadPress"
-      ],
-      "auxiliary": [
-        "pausedSquat"
-      ]
+      "primary": [ 3 ],
+      "auxiliary": [ 1 ]
     }
   ],
-  "x5": [
+  "5x": [
     {
-      "primary": [
-        "squat"
-      ],
-      "auxiliary": [
-        "overheadPress"
-      ]
+      "primary": [ 0 ],
+      "auxiliary": [ 5 ]
     },
     {
-      "primary": [
-        "bench"
-      ],
-      "auxiliary": [
-        "squat"
-      ]
+      "primary": [ 1 ],
+      "auxiliary": [ 0 ]
     },
     {
-      "primary": [
-        "deadlift"
-      ],
-      "auxiliary": [
-        "inclineBench"
-      ]
+      "primary": [ 2 ],
+      "auxiliary": [ 2 ]
     },
     {
-      "primary": [
-        "overheadPress"
-      ],
-      "auxiliary": [
-        "pausedSquat"
-      ]
+      "primary": [ 3 ],
+      "auxiliary": [ 1 ]
     },
     {
-      "auxiliary": [
-        "inclineBench",
-        "trapDeadlift"
-      ]
+      "primary": [],
+      "auxiliary": [ 3, 4 ]
     }
   ],
-  "x6": [
+  "6x": [
     {
-      "primary": [
-        "squat"
-      ],
-      "auxiliary": [
-        "inclineBench"
-      ]
+      "primary": [ 0 ],
+      "auxiliary": [ 2 ]
     },
     {
-      "auxiliary": [
-        "overheadPress",
-        "trapDeadlift"
-      ]
+      "primary": [],
+      "auxiliary": [ 4, 5 ]
     },
     {
-      "primary": [
-        "bench"
-      ],
-      "auxiliary": [
-        "squat"
-      ]
+      "primary": [ 1 ],
+      "auxiliary": [ 0 ]
     },
     {
-      "auxiliary": [
-        "inclineBench",
-        "pausedSquat"
-      ]
+      "primary": [],
+      "auxiliary": [ 3, 1 ]
     },
     {
-      "primary": [
-        "deadlift"
-      ]
+      "primary": [ 2 ],
+      "auxiliary": []
     },
     {
-      "primary": [
-        "overheadPress"
-      ]
+      "primary": [ 3 ],
+      "auxiliary": []
     }
   ]
 }

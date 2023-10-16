@@ -1,0 +1,1522 @@
+[
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 14,
+          "name": "232",
+          "reps": 7,
+          "weight": 0.6
+        },
+        {
+          "lastSet": 14,
+          "name": "124",
+          "reps": 7,
+          "weight": 14.399999999999999
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 10,
+          "name": "134",
+          "reps": 5,
+          "weight": 163.79999999999998
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 14,
+          "name": "2",
+          "reps": 7,
+          "weight": 2.4
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 10,
+          "name": "234",
+          "reps": 5,
+          "weight": 22.4
+        },
+        {
+          "lastSet": 10,
+          "name": "43",
+          "reps": 5,
+          "weight": 1.4
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 14,
+          "name": "234",
+          "reps": 7,
+          "weight": 20.4
+        },
+        {
+          "lastSet": 14,
+          "name": "42",
+          "reps": 7,
+          "weight": 1.2
+        },
+        {
+          "lastSet": 14,
+          "name": "141",
+          "reps": 7,
+          "weight": 31.799999999999997
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 10,
+          "name": "42",
+          "reps": 5,
+          "weight": 16.099999999999998
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 12,
+          "name": "232",
+          "reps": 6,
+          "weight": 0.65
+        },
+        {
+          "lastSet": 12,
+          "name": "124",
+          "reps": 6,
+          "weight": 15.600000000000001
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 8,
+          "name": "134",
+          "reps": 4,
+          "weight": 175.5
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 12,
+          "name": "2",
+          "reps": 6,
+          "weight": 2.6
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 8,
+          "name": "234",
+          "reps": 4,
+          "weight": 24
+        },
+        {
+          "lastSet": 8,
+          "name": "43",
+          "reps": 4,
+          "weight": 1.5
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 12,
+          "name": "234",
+          "reps": 6,
+          "weight": 22.1
+        },
+        {
+          "lastSet": 12,
+          "name": "42",
+          "reps": 6,
+          "weight": 1.3
+        },
+        {
+          "lastSet": 12,
+          "name": "141",
+          "reps": 6,
+          "weight": 34.45
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 8,
+          "name": "42",
+          "reps": 4,
+          "weight": 17.25
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "232",
+          "reps": 5,
+          "weight": 0.7
+        },
+        {
+          "lastSet": 10,
+          "name": "124",
+          "reps": 5,
+          "weight": 16.799999999999997
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "134",
+          "reps": 3,
+          "weight": 187.20000000000002
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "2",
+          "reps": 5,
+          "weight": 2.8
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "234",
+          "reps": 3,
+          "weight": 25.6
+        },
+        {
+          "lastSet": 6,
+          "name": "43",
+          "reps": 3,
+          "weight": 1.6
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "234",
+          "reps": 5,
+          "weight": 23.799999999999997
+        },
+        {
+          "lastSet": 10,
+          "name": "42",
+          "reps": 5,
+          "weight": 1.4
+        },
+        {
+          "lastSet": 10,
+          "name": "141",
+          "reps": 5,
+          "weight": 37.099999999999994
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "42",
+          "reps": 3,
+          "weight": 18.400000000000002
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 13,
+          "name": "232",
+          "reps": 7,
+          "weight": 0.625
+        },
+        {
+          "lastSet": 13,
+          "name": "124",
+          "reps": 7,
+          "weight": 15
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 9,
+          "name": "134",
+          "reps": 5,
+          "weight": 169.65
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 13,
+          "name": "2",
+          "reps": 7,
+          "weight": 2.5
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 9,
+          "name": "234",
+          "reps": 5,
+          "weight": 23.2
+        },
+        {
+          "lastSet": 9,
+          "name": "43",
+          "reps": 5,
+          "weight": 1.45
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 13,
+          "name": "234",
+          "reps": 7,
+          "weight": 21.25
+        },
+        {
+          "lastSet": 13,
+          "name": "42",
+          "reps": 7,
+          "weight": 1.25
+        },
+        {
+          "lastSet": 13,
+          "name": "141",
+          "reps": 7,
+          "weight": 33.125
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 9,
+          "name": "42",
+          "reps": 5,
+          "weight": 16.675
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 11,
+          "name": "232",
+          "reps": 6,
+          "weight": 0.675
+        },
+        {
+          "lastSet": 11,
+          "name": "124",
+          "reps": 6,
+          "weight": 16.200000000000003
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 7,
+          "name": "134",
+          "reps": 4,
+          "weight": 181.35
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 11,
+          "name": "2",
+          "reps": 6,
+          "weight": 2.7
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 7,
+          "name": "234",
+          "reps": 4,
+          "weight": 24.8
+        },
+        {
+          "lastSet": 7,
+          "name": "43",
+          "reps": 4,
+          "weight": 1.55
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 11,
+          "name": "234",
+          "reps": 6,
+          "weight": 22.950000000000003
+        },
+        {
+          "lastSet": 11,
+          "name": "42",
+          "reps": 6,
+          "weight": 1.35
+        },
+        {
+          "lastSet": 11,
+          "name": "141",
+          "reps": 6,
+          "weight": 35.775000000000006
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 7,
+          "name": "42",
+          "reps": 4,
+          "weight": 17.825
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 9,
+          "name": "232",
+          "reps": 5,
+          "weight": 0.725
+        },
+        {
+          "lastSet": 9,
+          "name": "124",
+          "reps": 5,
+          "weight": 17.4
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "134",
+          "reps": 3,
+          "weight": 193.04999999999998
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 9,
+          "name": "2",
+          "reps": 5,
+          "weight": 2.9
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "234",
+          "reps": 3,
+          "weight": 26.4
+        },
+        {
+          "lastSet": 5,
+          "name": "43",
+          "reps": 3,
+          "weight": 1.65
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 9,
+          "name": "234",
+          "reps": 5,
+          "weight": 24.65
+        },
+        {
+          "lastSet": 9,
+          "name": "42",
+          "reps": 5,
+          "weight": 1.45
+        },
+        {
+          "lastSet": 9,
+          "name": "141",
+          "reps": 5,
+          "weight": 38.425
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "42",
+          "reps": 3,
+          "weight": 18.974999999999998
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 5,
+          "name": "232",
+          "reps": 5,
+          "weight": 0.5
+        },
+        {
+          "lastSet": 5,
+          "name": "124",
+          "reps": 5,
+          "weight": 12
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "134",
+          "reps": 5,
+          "weight": 140.4
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 5,
+          "name": "2",
+          "reps": 5,
+          "weight": 2
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "234",
+          "reps": 5,
+          "weight": 19.2
+        },
+        {
+          "lastSet": 5,
+          "name": "43",
+          "reps": 5,
+          "weight": 1.2
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 5,
+          "name": "234",
+          "reps": 5,
+          "weight": 17
+        },
+        {
+          "lastSet": 5,
+          "name": "42",
+          "reps": 5,
+          "weight": 1
+        },
+        {
+          "lastSet": 5,
+          "name": "141",
+          "reps": 5,
+          "weight": 26.5
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "42",
+          "reps": 5,
+          "weight": 13.799999999999999
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 12,
+          "name": "232",
+          "reps": 6,
+          "weight": 0.65
+        },
+        {
+          "lastSet": 12,
+          "name": "124",
+          "reps": 6,
+          "weight": 15.600000000000001
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 8,
+          "name": "134",
+          "reps": 4,
+          "weight": 175.5
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 12,
+          "name": "2",
+          "reps": 6,
+          "weight": 2.6
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 8,
+          "name": "234",
+          "reps": 4,
+          "weight": 24
+        },
+        {
+          "lastSet": 8,
+          "name": "43",
+          "reps": 4,
+          "weight": 1.5
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 12,
+          "name": "234",
+          "reps": 6,
+          "weight": 22.1
+        },
+        {
+          "lastSet": 12,
+          "name": "42",
+          "reps": 6,
+          "weight": 1.3
+        },
+        {
+          "lastSet": 12,
+          "name": "141",
+          "reps": 6,
+          "weight": 34.45
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 8,
+          "name": "42",
+          "reps": 4,
+          "weight": 17.25
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "232",
+          "reps": 5,
+          "weight": 0.7
+        },
+        {
+          "lastSet": 10,
+          "name": "124",
+          "reps": 5,
+          "weight": 16.799999999999997
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "134",
+          "reps": 3,
+          "weight": 187.20000000000002
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "2",
+          "reps": 5,
+          "weight": 2.8
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "234",
+          "reps": 3,
+          "weight": 25.6
+        },
+        {
+          "lastSet": 6,
+          "name": "43",
+          "reps": 3,
+          "weight": 1.6
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "234",
+          "reps": 5,
+          "weight": 23.799999999999997
+        },
+        {
+          "lastSet": 10,
+          "name": "42",
+          "reps": 5,
+          "weight": 1.4
+        },
+        {
+          "lastSet": 10,
+          "name": "141",
+          "reps": 5,
+          "weight": 37.099999999999994
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "42",
+          "reps": 3,
+          "weight": 18.400000000000002
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "232",
+          "reps": 4,
+          "weight": 0.75
+        },
+        {
+          "lastSet": 8,
+          "name": "124",
+          "reps": 4,
+          "weight": 18
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "134",
+          "reps": 2,
+          "weight": 198.9
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "2",
+          "reps": 4,
+          "weight": 3
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "234",
+          "reps": 2,
+          "weight": 27.2
+        },
+        {
+          "lastSet": 4,
+          "name": "43",
+          "reps": 2,
+          "weight": 1.7
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "234",
+          "reps": 4,
+          "weight": 25.5
+        },
+        {
+          "lastSet": 8,
+          "name": "42",
+          "reps": 4,
+          "weight": 1.5
+        },
+        {
+          "lastSet": 8,
+          "name": "141",
+          "reps": 4,
+          "weight": 39.75
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "42",
+          "reps": 2,
+          "weight": 19.55
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 11,
+          "name": "232",
+          "reps": 6,
+          "weight": 0.675
+        },
+        {
+          "lastSet": 11,
+          "name": "124",
+          "reps": 6,
+          "weight": 16.200000000000003
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 7,
+          "name": "134",
+          "reps": 4,
+          "weight": 181.35
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 11,
+          "name": "2",
+          "reps": 6,
+          "weight": 2.7
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 7,
+          "name": "234",
+          "reps": 4,
+          "weight": 24.8
+        },
+        {
+          "lastSet": 7,
+          "name": "43",
+          "reps": 4,
+          "weight": 1.55
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 11,
+          "name": "234",
+          "reps": 6,
+          "weight": 22.950000000000003
+        },
+        {
+          "lastSet": 11,
+          "name": "42",
+          "reps": 6,
+          "weight": 1.35
+        },
+        {
+          "lastSet": 11,
+          "name": "141",
+          "reps": 6,
+          "weight": 35.775000000000006
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 7,
+          "name": "42",
+          "reps": 4,
+          "weight": 17.825
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 9,
+          "name": "232",
+          "reps": 5,
+          "weight": 0.725
+        },
+        {
+          "lastSet": 9,
+          "name": "124",
+          "reps": 5,
+          "weight": 17.4
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "134",
+          "reps": 3,
+          "weight": 193.04999999999998
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 9,
+          "name": "2",
+          "reps": 5,
+          "weight": 2.9
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "234",
+          "reps": 3,
+          "weight": 26.4
+        },
+        {
+          "lastSet": 5,
+          "name": "43",
+          "reps": 3,
+          "weight": 1.65
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 9,
+          "name": "234",
+          "reps": 5,
+          "weight": 24.65
+        },
+        {
+          "lastSet": 9,
+          "name": "42",
+          "reps": 5,
+          "weight": 1.45
+        },
+        {
+          "lastSet": 9,
+          "name": "141",
+          "reps": 5,
+          "weight": 38.425
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "42",
+          "reps": 3,
+          "weight": 18.974999999999998
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 7,
+          "name": "232",
+          "reps": 4,
+          "weight": 0.775
+        },
+        {
+          "lastSet": 7,
+          "name": "124",
+          "reps": 4,
+          "weight": 18.6
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 3,
+          "name": "134",
+          "reps": 2,
+          "weight": 204.75
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 7,
+          "name": "2",
+          "reps": 4,
+          "weight": 3.1
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 3,
+          "name": "234",
+          "reps": 2,
+          "weight": 28
+        },
+        {
+          "lastSet": 3,
+          "name": "43",
+          "reps": 2,
+          "weight": 1.75
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 7,
+          "name": "234",
+          "reps": 4,
+          "weight": 26.35
+        },
+        {
+          "lastSet": 7,
+          "name": "42",
+          "reps": 4,
+          "weight": 1.55
+        },
+        {
+          "lastSet": 7,
+          "name": "141",
+          "reps": 4,
+          "weight": 41.075
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 3,
+          "name": "42",
+          "reps": 2,
+          "weight": 20.125
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 5,
+          "name": "232",
+          "reps": 5,
+          "weight": 0.5
+        },
+        {
+          "lastSet": 5,
+          "name": "124",
+          "reps": 5,
+          "weight": 12
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "134",
+          "reps": 5,
+          "weight": 140.4
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 5,
+          "name": "2",
+          "reps": 5,
+          "weight": 2
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "234",
+          "reps": 5,
+          "weight": 19.2
+        },
+        {
+          "lastSet": 5,
+          "name": "43",
+          "reps": 5,
+          "weight": 1.2
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 5,
+          "name": "234",
+          "reps": 5,
+          "weight": 17
+        },
+        {
+          "lastSet": 5,
+          "name": "42",
+          "reps": 5,
+          "weight": 1
+        },
+        {
+          "lastSet": 5,
+          "name": "141",
+          "reps": 5,
+          "weight": 26.5
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 5,
+          "name": "42",
+          "reps": 5,
+          "weight": 13.799999999999999
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "232",
+          "reps": 5,
+          "weight": 0.7
+        },
+        {
+          "lastSet": 10,
+          "name": "124",
+          "reps": 5,
+          "weight": 16.799999999999997
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "134",
+          "reps": 3,
+          "weight": 187.20000000000002
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "2",
+          "reps": 5,
+          "weight": 2.8
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "234",
+          "reps": 3,
+          "weight": 25.6
+        },
+        {
+          "lastSet": 6,
+          "name": "43",
+          "reps": 3,
+          "weight": 1.6
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 10,
+          "name": "234",
+          "reps": 5,
+          "weight": 23.799999999999997
+        },
+        {
+          "lastSet": 10,
+          "name": "42",
+          "reps": 5,
+          "weight": 1.4
+        },
+        {
+          "lastSet": 10,
+          "name": "141",
+          "reps": 5,
+          "weight": 37.099999999999994
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 6,
+          "name": "42",
+          "reps": 3,
+          "weight": 18.400000000000002
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "232",
+          "reps": 4,
+          "weight": 0.75
+        },
+        {
+          "lastSet": 8,
+          "name": "124",
+          "reps": 4,
+          "weight": 18
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "134",
+          "reps": 2,
+          "weight": 198.9
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "2",
+          "reps": 4,
+          "weight": 3
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "234",
+          "reps": 2,
+          "weight": 27.2
+        },
+        {
+          "lastSet": 4,
+          "name": "43",
+          "reps": 2,
+          "weight": 1.7
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "234",
+          "reps": 4,
+          "weight": 25.5
+        },
+        {
+          "lastSet": 8,
+          "name": "42",
+          "reps": 4,
+          "weight": 1.5
+        },
+        {
+          "lastSet": 8,
+          "name": "141",
+          "reps": 4,
+          "weight": 39.75
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "42",
+          "reps": 2,
+          "weight": 19.55
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 6,
+          "name": "232",
+          "reps": 3,
+          "weight": 0.8
+        },
+        {
+          "lastSet": 6,
+          "name": "124",
+          "reps": 3,
+          "weight": 19.200000000000003
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 2,
+          "name": "134",
+          "reps": 1,
+          "weight": 210.6
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 6,
+          "name": "2",
+          "reps": 3,
+          "weight": 3.2
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 2,
+          "name": "234",
+          "reps": 1,
+          "weight": 28.8
+        },
+        {
+          "lastSet": 2,
+          "name": "43",
+          "reps": 1,
+          "weight": 1.8
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 6,
+          "name": "234",
+          "reps": 3,
+          "weight": 27.200000000000003
+        },
+        {
+          "lastSet": 6,
+          "name": "42",
+          "reps": 3,
+          "weight": 1.6
+        },
+        {
+          "lastSet": 6,
+          "name": "141",
+          "reps": 3,
+          "weight": 42.400000000000006
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 2,
+          "name": "42",
+          "reps": 1,
+          "weight": 20.7
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "232",
+          "reps": 4,
+          "weight": 0.75
+        },
+        {
+          "lastSet": 8,
+          "name": "124",
+          "reps": 4,
+          "weight": 18
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "134",
+          "reps": 2,
+          "weight": 198.9
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "2",
+          "reps": 4,
+          "weight": 3
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "234",
+          "reps": 2,
+          "weight": 27.2
+        },
+        {
+          "lastSet": 4,
+          "name": "43",
+          "reps": 2,
+          "weight": 1.7
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 8,
+          "name": "234",
+          "reps": 4,
+          "weight": 25.5
+        },
+        {
+          "lastSet": 8,
+          "name": "42",
+          "reps": 4,
+          "weight": 1.5
+        },
+        {
+          "lastSet": 8,
+          "name": "141",
+          "reps": 4,
+          "weight": 39.75
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 4,
+          "name": "42",
+          "reps": 2,
+          "weight": 19.55
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "auxiliary": [
+        {
+          "lastSet": 6,
+          "name": "232",
+          "reps": 3,
+          "weight": 0.8
+        },
+        {
+          "lastSet": 6,
+          "name": "124",
+          "reps": 3,
+          "weight": 19.200000000000003
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 2,
+          "name": "134",
+          "reps": 1,
+          "weight": 210.6
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 6,
+          "name": "2",
+          "reps": 3,
+          "weight": 3.2
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 2,
+          "name": "234",
+          "reps": 1,
+          "weight": 28.8
+        },
+        {
+          "lastSet": 2,
+          "name": "43",
+          "reps": 1,
+          "weight": 1.8
+        }
+      ]
+    },
+    {
+      "auxiliary": [
+        {
+          "lastSet": 6,
+          "name": "234",
+          "reps": 3,
+          "weight": 27.200000000000003
+        },
+        {
+          "lastSet": 6,
+          "name": "42",
+          "reps": 3,
+          "weight": 1.6
+        },
+        {
+          "lastSet": 6,
+          "name": "141",
+          "reps": 3,
+          "weight": 42.400000000000006
+        }
+      ],
+      "primary": [
+        {
+          "lastSet": 2,
+          "name": "42",
+          "reps": 1,
+          "weight": 20.7
+        }
+      ]
+    }
+  ]
+]

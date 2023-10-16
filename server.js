@@ -16,6 +16,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const database = getDatabase(firebaseApp);
 
 app.post('/users/:userId/new', (req, res) => {
+  console.log(`post: /users/${req.params.userId}/new`);
   const dbRef = ref(getDatabase());
 
   get(child(dbRef, `setup/`))
@@ -31,12 +32,14 @@ app.post('/users/:userId/new', (req, res) => {
     .catch((err) => console.log(err));
 }); 
 
-// app.get('/users/:userId/routine', (req, res) => {
-//   const dbRef = ref(getDatabase());
-//
-//   get(child(dbRef, `users/${req.params.userId}/routine`))
-//     .then((snapshot)) => snapshot.val())
-//     .catch((err) => console.log(err));
-// });
+app.get('/users/:userId/routine', (req, res) => {
+  console.log(`get: /users/${req.params.userId}/routine`);
+  const dbRef = ref(getDatabase());
+
+  get(child(dbRef, `/users/${req.params.userId}/routine`))
+    .then((snapshot) => snapshot.val())
+    .then((routine) => res.send(routine).sendStatus(200))
+    .catch((err) => console.log(err));
+});
 
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));

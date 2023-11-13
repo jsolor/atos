@@ -1,7 +1,8 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
-function LogIn({ auth }) {
+function LogIn({ auth, setUser, setPageBody }) {
   const [registration, setRegistration] = useState(false);
   const [linkText, setLinkText] = useState('register');
 
@@ -42,6 +43,22 @@ function LogIn({ auth }) {
         });
     }
   };
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setPageBody('Lifts');
+      } else {
+        setUser(null);
+        setPageBody('LogIn');
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  });
 
   return (
     <div className="flex justify-center items-center text-center mt-40">

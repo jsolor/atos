@@ -1,9 +1,22 @@
-import PropTypes from 'prop-types';
+import { signOut } from 'firebase/auth';
 
-function NavBar({ setPageBody }) {
+function NavBar({ auth, setUser, setPageBody }) {
+  const logOut = (e) => {
+    e.preventDefault();
+
+    signOut(auth)
+      .then(() => {
+        console.log('sign out successful');
+        setUser(null);
+        setPageBody('LogIn');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
-    <>
+    <div>
       <div className="navbar bg-base-100">
       
         <div className="navbar-start">
@@ -19,20 +32,16 @@ function NavBar({ setPageBody }) {
         </div>
 
         <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle" onClick={() => setPageBody('Settings')}>
-            <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M18 7.5h-.423l-.452-1.09.3-.3a1.5 1.5 0 0 0 0-2.121L16.01 2.575a1.5 1.5 0 0 0-2.121 0l-.3.3-1.089-.452V2A1.5 1.5 0 0 0 11 .5H9A1.5 1.5 0 0 0 7.5 2v.423l-1.09.452-.3-.3a1.5 1.5 0 0 0-2.121 0L2.576 3.99a1.5 1.5 0 0 0 0 2.121l.3.3L2.423 7.5H2A1.5 1.5 0 0 0 .5 9v2A1.5 1.5 0 0 0 2 12.5h.423l.452 1.09-.3.3a1.5 1.5 0 0 0 0 2.121l1.415 1.413a1.5 1.5 0 0 0 2.121 0l.3-.3 1.09.452V18A1.5 1.5 0 0 0 9 19.5h2a1.5 1.5 0 0 0 1.5-1.5v-.423l1.09-.452.3.3a1.5 1.5 0 0 0 2.121 0l1.415-1.414a1.5 1.5 0 0 0 0-2.121l-.3-.3.452-1.09H18a1.5 1.5 0 0 0 1.5-1.5V9A1.5 1.5 0 0 0 18 7.5Zm-8 6a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/>
+          <button className="btn btn-ghost btn-circle" title="log out" onClick={logOut}>
+            <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 15">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 7.5h11m0 0L8 3.786M12 7.5l-4 3.714M12 1h3c.53 0 1.04.196 1.414.544.375.348.586.82.586 1.313v9.286c0 .492-.21.965-.586 1.313A2.081 2.081 0 0 1 15 14h-3"/>
             </svg>
           </button>
         </div>
   
       </div>
-    </>
+    </div>
   );
-}
-
-NavBar.propTypes = {
-    setPageBody: PropTypes.func.isRequired
 }
 
 export default NavBar;

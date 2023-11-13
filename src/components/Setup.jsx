@@ -1,4 +1,5 @@
-import axios from "axios";
+import { ref, set } from "firebase/database";
+import { makeNewRoutine } from "../routine";
 
 function LiftEntry({ category, n }) {
   const nameId = category + '-' + n + '-name';
@@ -15,7 +16,7 @@ function LiftEntry({ category, n }) {
   );
 }
 
-function Setup() {
+function Setup({ db, uid }) {
   const submitForm = (e) => {
     e.preventDefault();
     
@@ -36,15 +37,19 @@ function Setup() {
       auxiliaryLifts.push({ name, weight });
     }
 
-    axios.post(`users/${123}/new`, {
-        params: {
-          days,
-          primaryLifts,
-          auxiliaryLifts
-        }
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    const routine = makeNewRoutine(primaryLifts, auxiliaryLifts);
+
+    set(ref(db, `users/${uid}`), {
+      days,
+      routine,
+      lifts: {
+        primary: primaryLifts,
+        auxiliary: auxiliaryLifts
+      }
+    })
+    .then(() => console.log('saved to db'))
+    .catch((error) => console.log(error));
+    
   };
 
   return (

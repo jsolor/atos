@@ -78,4 +78,8 @@ function updateWeight(category, week, updatedTM) {
   return updatedTM * intensity;
 }
 
-export { makeNewRoutine, formatWeek, updateWeight };
+function getPotentialLifts(day, category, format) {
+  return schedules[format][day][category];
+}
+
+export { makeNewRoutine, formatWeek, updateWeight, getPotentialLifts };

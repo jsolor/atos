@@ -16,7 +16,6 @@ function Lifts({ db, uid }) {
     const dbRef = ref(db);
     get(child(dbRef, `users/${uid}`))
       .then((snapshot) => {
-        console.log(snapshot.val());
         setData(snapshot.val());
       })
       .catch((error) => console.log(error));
@@ -30,7 +29,7 @@ function Lifts({ db, uid }) {
         routine.push(formatWeek(data.days + 'x', data.routine[i]));
       }
 
-      setFormat(Number(routine.days));
+      setFormat(Number(data.days));
       setFormattedRoutine(routine);
     }
   }, [data]);
@@ -88,6 +87,8 @@ function Lifts({ db, uid }) {
           lastSet={lastSet}
           category="primary"
           week={week}
+          day={day}
+          format={format}
           db={db}
           uid={uid}
         />
@@ -101,6 +102,8 @@ function Lifts({ db, uid }) {
           lastSet={lastSet}
           category="auxiliary"
           week={week}
+          day={day}
+          format={format}
           db={db}
           uid={uid}
         />

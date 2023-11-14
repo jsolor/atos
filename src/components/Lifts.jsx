@@ -1,86 +1,54 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { child, get, ref } from 'firebase/database';
+import Lift from './Lift';
+import { formatWeek } from '../routine';
 
-import sampleRoutine from '../../sampleData/routine.json';
-
-function SetButton({ reps }) {
-  const [classes, setClasses] = useState('btn btn-active w-12');
-
-  const onClick = (e) => {
-    e.preventDefault();
-    if (classes === 'btn btn-active w-12') {
-      setClasses('btn btn-success w-12');
-    } else {
-      setClasses('btn btn-active w-12')
-    }
-  }
-
-  return (
-    <button className={classes} onClick={onClick}>
-      {reps}
-    </button>
-  )
-}
-
-function Lift({ name, weight, reps, lastSet }) {
-  return (
-    <div className="mb-6">
-      <div>
-        <div className="flex justify-between mb-1">
-          <p className="text-xl italic">{name}</p>
-          <p className="text-xl">{weight}</p>
-        </div>
-        <div>
-          <div className="flex justify-center space-x-1">
-            {([0, 1, 2, 3]).map(() => <SetButton reps={reps} />)}
-            <input type="number" className="input w-20" placeholder={lastSet} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Lifts({ userId }) {
-  const [routine, setRoutine] = useState([]);
+function Lifts({ db, uid }) {
+  const [data, setData] = useState(null);
+  const [formattedRoutine, setFormattedRoutine] = useState([]);
   const [format, setFormat] = useState(3);
   const [day, setDay] = useState(0);
   const [week, setWeek] = useState(0);
   const [primaryLifts, setPrimaryLifts] = useState([]);
   const [auxiliaryLifts, setAuxiliaryLifts] = useState([]);
-
-  // useEffect(() => {
-  //   axios.get(`/users/${userId}/routine`)
-  //     .then(({ data }) => setRoutine(data))
-  //     .catch((err) => console.log(err))
-  // }, [userId]);
-
-  useEffect(() => {
-    setRoutine(sampleRoutine);
-  }, []);
   
   useEffect(() => {
-    if (routine.length) {
-      if ('primary' in routine[week][day]) {
-      setPrimaryLifts(routine[week][day].primary);
+    const dbRef = ref(db);
+    get(child(dbRef, `users/${uid}`))
+      .then((snapshot) => {
+        console.log(snapshot.val());
+        setData(snapshot.val());
+      })
+      .catch((error) => console.log(error));
+  }, [db, uid]);
+
+  useEffect(() => {
+    if (data) {
+      const routine = [];
+
+      for (let i = 0; i < data.routine.length; i++) {
+        routine.push(formatWeek(data.days + 'x', data.routine[i]));
+      }
+
+      setFormat(Number(routine.days));
+      setFormattedRoutine(routine);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (formattedRoutine.length) {
+      if ('primary' in formattedRoutine[week][day]) {
+        setPrimaryLifts(formattedRoutine[week][day].primary);
       } else {
         setPrimaryLifts([]);
       }
-      if ('auxiliary' in routine[week][day]) {
-        setAuxiliaryLifts(routine[week][day].auxiliary);
+      if ('auxiliary' in formattedRoutine[week][day]) {
+        setAuxiliaryLifts(formattedRoutine[week][day].auxiliary);
       } else {
         setAuxiliaryLifts([]);
       }
     }
-  }, [routine, week, day]);
-
-  useEffect(() => {
-    console.log('day: ' + day);
-  }, [day]);
-
-  useEffect(() => {
-    console.log('week: ' + week);
-  }, [week]);
+  }, [formattedRoutine, week, day]);
 
   const changeWeek = (change) => {
     if (week + change >= 18) {
@@ -110,13 +78,32 @@ function Lifts({ userId }) {
 
   return (
     <div className="overflow-x-auto">
+      <h1>W{week} D{day}</h1>
       <div className="divider">primary</div> 
       {primaryLifts.map(({ name, reps, weight, lastSet }) => 
-        <Lift name={name} reps={reps} weight={weight} lastSet={lastSet}/>
+        <Lift 
+          name={name}
+          reps={reps}
+          weight={weight}
+          lastSet={lastSet}
+          category="primary"
+          week={week}
+          db={db}
+          uid={uid}
+        />
       )}
       <div className="divider">auxiliary</div> 
       {auxiliaryLifts.map(({ name, reps, weight, lastSet }) => 
-        <Lift name={name} reps={reps} weight={weight} lastSet={lastSet}/>
+        <Lift 
+          name={name}
+          reps={reps}
+          weight={weight}
+          lastSet={lastSet}
+          category="auxiliary"
+          week={week}
+          db={db}
+          uid={uid}
+        />
       )}
       
       <div className="flex justify-between items-end fixed bottom-0 left-0 right-0 p-4">

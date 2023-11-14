@@ -1,7 +1,7 @@
 import { child, get, ref, update } from 'firebase/database';
 import { multipliers } from '../data/workout.json';
 import { useState } from 'react';
-import { updateWeight } from '../routine';
+import { getPotentialLifts, updateWeight } from '../routine';
 
 function SetButton({ reps }) {
   const [classes, setClasses] = useState('btn btn-active w-12');
@@ -32,10 +32,10 @@ const debounce = (callback, wait) => {
   };
 };
 
-function Lift({ name, weight, reps, lastSet, category, week, db, uid }) {
+function Lift({ name, weight, reps, lastSet, category, week, day, format, db, uid }) {
   const saveProgress = (val) => {
     const delta = val - Number(lastSet);
-    let m = 2; // delta === 0
+    let m = 2;
   
     if (delta < 0) {
       if (delta === -1) {
@@ -66,27 +66,34 @@ function Lift({ name, weight, reps, lastSet, category, week, db, uid }) {
     
     if (multiplier !== 1) {
       const dbRef = ref(db);
+      const potentialLifts = getPotentialLifts(day, category, format + 'x');
+      const updates = {};
+      const altCategory = category + 'Lifts';
+
       get(child(dbRef, `users/${uid}/lifts/${category}`))
         .then((snapshot) => snapshot.val())
         .then((lifts) => {
-          for (let i = 0; i < lifts.length; i++) {
-            if (lifts[i]['name'] === name) {
-              const updatedTM = Number(lifts[i].weight) * multiplier;
-              const updates = {};
-              updates[`/users/${uid}/lifts/${category}/${i}/weight`] = updatedTM;
-              const altCategory = category === 'primary' ? 'primaryLifts' : 'auxiliaryLifts';
-              for (let j = week + 1; j < 19; j++) {
-                const updatedWeight = updateWeight(category, j, updatedTM);
-                updates[`/users/${uid}/routine/${j}/${altCategory}/${i}/weight`] = updatedWeight;
+          for (const l of potentialLifts) {
+            if (lifts[l].name === name) {
+              const updatedTM = Number(lifts[l].weight) * multiplier;
+              updates[`/users/${uid}/routine/${week}/${altCategory}/${l}/lastSetActual`] = Number(val);
+              updates[`/users/${uid}/lifts/${category}/${l}/weight`] = updatedTM;
+              
+              for (let i = week + 1; i < 19; i++) {
+                const updatedWeight = updateWeight(category, i, updatedTM);
+                updates[`/users/${uid}/routine/${i}/${altCategory}/${l}/weight`] = updatedWeight;
               }
-              update(dbRef, updates)
-                .then(() => console.log('updated'))
-                .catch((error) => console.log(error));
+
+              return updates;
             }
           }
         })
+        .then((updates) => {
+          update(dbRef, updates)
+        })
+        .then(() => console.log('updated successfully'))
         .catch((error) => console.log(error));
-    }
+    } 
   };
 
   const debouncedSaveProgress = debounce(saveProgress, 1500);

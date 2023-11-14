@@ -73,4 +73,9 @@ function formatWeek(format, { primaryLifts, auxiliaryLifts }) {
   return week;
 }
 
-export { makeNewRoutine, formatWeek };
+function updateWeight(category, week, updatedTM) {
+  const intensity = programming[category]['intensity'][week];
+  return updatedTM * intensity;
+}
+
+export { makeNewRoutine, formatWeek, updateWeight };

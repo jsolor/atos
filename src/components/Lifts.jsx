@@ -29,7 +29,7 @@ function Lifts({ db, uid }) {
         routine.push(formatWeek(data.days + 'x', data.routine[i]));
       }
 
-      setFormat(Number(data.days));
+      setFormat(data.days);
       setFormattedRoutine(routine);
     }
   }, [data]);

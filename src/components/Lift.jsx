@@ -45,7 +45,7 @@ function Lift({ name, weight, reps, lastSet, lastSetActual, category, week, day,
 
 
   const saveProgress = (val) => {
-    const delta = val - Number(lastSet);
+    const delta = val - lastSet;
     let m = 2;
   
     if (delta < 0) {
@@ -73,7 +73,7 @@ function Lift({ name, weight, reps, lastSet, lastSetActual, category, week, day,
       }
     }
   
-    const multiplier = Number(multipliers[m]);
+    const multiplier = multipliers[m];
     
     if (multiplier !== 1) {
       const dbRef = ref(db);
@@ -86,8 +86,8 @@ function Lift({ name, weight, reps, lastSet, lastSetActual, category, week, day,
         .then((lifts) => {
           for (const l of potentialLifts) {
             if (lifts[l].name === name) {
-              const updatedTM = Number(lifts[l].weight) * multiplier;
-              updates[`/users/${uid}/routine/${week}/${altCategory}/${l}/lastSetActual`] = Number(val);
+              const updatedTM = lifts[l].weight * multiplier;
+              updates[`/users/${uid}/routine/${week}/${altCategory}/${l}/lastSetActual`] = val;
               updates[`/users/${uid}/lifts/${category}/${l}/weight`] = updatedTM;
               
               for (let i = week + 1; i < 19; i++) {
@@ -109,8 +109,8 @@ function Lift({ name, weight, reps, lastSet, lastSetActual, category, week, day,
 
   const debouncedSaveProgress = debounce(saveProgress, 1500);
   const handleChange = (e) => {
-    debouncedSaveProgress(e.target.value);
-  }
+    debouncedSaveProgress(Number(e.target.value));
+  };
 
   return (
     <div className="mb-6">

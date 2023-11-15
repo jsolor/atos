@@ -28,20 +28,19 @@ function Setup({ db, uid, setRoutineSetup }) {
     for (let i = 0; i < 4; i++) {
       const prefix = 'pri-' + i;
       const name = e.target[prefix + '-name'].value;
-      const weight = e.target[prefix + '-weight'].value;
+      const weight = Number(e.target[prefix + '-weight'].value);
       primaryLifts.push({ name, weight });
     }
     for (let i = 0; i < 6; i++) {
       const prefix = 'aux-' + i;
       const name = e.target[prefix + '-name'].value;
-      const weight = e.target[prefix + '-weight'].value;
+      const weight = Number(e.target[prefix + '-weight'].value);
       auxiliaryLifts.push({ name, weight });
     }
 
     const routine = makeNewRoutine(primaryLifts, auxiliaryLifts);
-
     set(ref(db, `users/${uid}`), {
-      daysPerWeek,
+      days: daysPerWeek,
       routine,
       lifts: {
         primary: primaryLifts,
@@ -59,7 +58,7 @@ function Setup({ db, uid, setRoutineSetup }) {
       .then(({ primary, auxiliary }) => {
         const routine = makeNewRoutine(primary, auxiliary);
         return set(ref(db, `/users/${uid}`), {
-          daysPerWeek,
+          days: daysPerWeek,
           routine,
           lifts: {
             primary,
@@ -74,7 +73,7 @@ function Setup({ db, uid, setRoutineSetup }) {
   return (
     <div>
       <h1>new routine setup</h1>
-      <div className="my-3" onChange={(e) => setDaysPerWeek(e.target.value)}>
+      <div className="my-3" onChange={(e) => setDaysPerWeek(Number(e.target.value))}>
         <a>lift </a>
         {/* make selected reflect current */}
         <select required name="select" className="select select-bordered w-full max-w-xs">

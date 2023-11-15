@@ -19,7 +19,7 @@ function makeNewRoutine(primaryLifts, auxiliaryLifts) {
 
     for (let j = 0; j < primaryLifts.length; j++) {
       const { name, weight } = primaryLifts[j];
-      const trainingWeight = Number(weight) * priIntesity;
+      const trainingWeight = weight * priIntesity;
 
       priLifts.push({
         name,
@@ -31,7 +31,7 @@ function makeNewRoutine(primaryLifts, auxiliaryLifts) {
 
     for (let j = 0; j < auxiliaryLifts.length; j++) {
       const { name, weight } = auxiliaryLifts[j];
-      const trainingWeight = Number(weight) * auxIntesity;
+      const trainingWeight = weight * auxIntesity;
 
       auxLifts.push({
         name,

@@ -12,7 +12,7 @@ function LiftRow({ name, weight }) {
 }
 
 function Profile({ db, uid }) {
-  const [primaryTab, setPrimaryTab] = useState('tab');
+  const [primaryTab, setPrimaryTab] = useState('tab tab-active');
   const [auxiliaryTab, setAuxiliaryTab] = useState('tab');
   const [primaryLifts, setPrimaryLifts] = useState([]);
   const [auxiliaryLifts, setAuxiliaryLifts] = useState([]);
@@ -50,7 +50,6 @@ function Profile({ db, uid }) {
 
         <div className="overflow-x-auto">
           <table className="table table-zebra">
-            {/* head */}
             <thead>
               <tr>
                 <th></th>

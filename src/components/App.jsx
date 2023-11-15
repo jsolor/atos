@@ -35,12 +35,12 @@ function App() {
 
   return (
     <div>
-      {user && (<NavBar auth={auth} setUser={setUser} setPageBody={setPageBody} />)}
+      {user && (<NavBar auth={auth} setUser={setUser} pageBody={pageBody} setPageBody={setPageBody} />)}
 
       {
         (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
         (pageBody === 'Lifts' && <Lifts db={db} uid={uid} />) ||
-        (pageBody === 'Profile' && <Profile />) ||
+        (pageBody === 'Profile' && <Profile db={db} uid={uid} />) ||
         (pageBody === 'Settings' && <Settings />)
       }
     </div>

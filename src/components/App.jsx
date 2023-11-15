@@ -4,7 +4,6 @@ import LogIn from './LogIn';
 import Lifts from './Lifts';
 import Profile from './Profile';
 import Settings from './Settings';
-import Setup from './Setup';
 import { useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
@@ -41,7 +40,7 @@ function App() {
         (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
         (pageBody === 'Lifts' && <Lifts db={db} uid={uid} />) ||
         (pageBody === 'Profile' && <Profile db={db} uid={uid} />) ||
-        (pageBody === 'Settings' && <Settings />)
+        (pageBody === 'Settings' && <Settings db={db} uid={uid} />)
       }
     </div>
   );

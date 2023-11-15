@@ -79,12 +79,13 @@ function Lifts({ db, uid }) {
     <div className="overflow-x-auto">
       <h1>W{week} D{day}</h1>
       <div className="divider">primary</div> 
-      {primaryLifts.map(({ name, reps, weight, lastSet }) => 
+      {primaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
         <Lift 
           name={name}
           reps={reps}
           weight={weight}
           lastSet={lastSet}
+          lastSetActual={lastSetActual}
           category="primary"
           week={week}
           day={day}
@@ -94,12 +95,13 @@ function Lifts({ db, uid }) {
         />
       )}
       <div className="divider">auxiliary</div> 
-      {auxiliaryLifts.map(({ name, reps, weight, lastSet }) => 
+      {auxiliaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
         <Lift 
           name={name}
           reps={reps}
           weight={weight}
           lastSet={lastSet}
+          lastSetActual={lastSetActual}
           category="auxiliary"
           week={week}
           day={day}

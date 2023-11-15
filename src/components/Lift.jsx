@@ -1,6 +1,6 @@
 import { child, get, ref, update } from 'firebase/database';
 import { multipliers } from '../data/workout.json';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getPotentialLifts, updateWeight } from '../routine';
 
 function SetButton({ reps }) {
@@ -32,7 +32,18 @@ const debounce = (callback, wait) => {
   };
 };
 
-function Lift({ name, weight, reps, lastSet, category, week, day, format, db, uid }) {
+function Lift({ name, weight, reps, lastSet, lastSetActual, category, week, day, format, db, uid }) {
+  const [lastSetPlaceholder, setLastSetPlaceholder] = useState(null);
+
+  useEffect(() => {
+    if (lastSetActual ?? false) {
+      setLastSetPlaceholder(lastSetActual);
+    } else {
+      setLastSetPlaceholder(lastSet);
+    }
+  }, [lastSet, lastSetActual]);
+
+
   const saveProgress = (val) => {
     const delta = val - Number(lastSet);
     let m = 2;
@@ -111,7 +122,7 @@ function Lift({ name, weight, reps, lastSet, category, week, day, format, db, ui
         <div>
           <div className="flex justify-center space-x-1">
             {([0, 1, 2, 3]).map(() => <SetButton reps={reps} />)}
-            <input type="number" className="input w-20" placeholder={lastSet} onChange={handleChange} />
+            <input type="number" className="input w-20" placeholder={lastSetPlaceholder} onChange={handleChange} />
           </div>
         </div>
       </div>

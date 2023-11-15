@@ -1,5 +1,6 @@
-import { ref, set } from "firebase/database";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 import { makeNewRoutine } from "../routine";
+import { useState } from "react";
 
 function LiftEntry({ category, n }) {
   const nameId = category + '-' + n + '-name';
@@ -16,11 +17,11 @@ function LiftEntry({ category, n }) {
   );
 }
 
-function Setup({ db, uid }) {
-  const submitForm = (e) => {
+function Setup({ db, uid, setRoutineSetup }) {
+  const [daysPerWeek, setDaysPerWeek] = useState(null);
+  const submitNewRoutineForm = (e) => {
     e.preventDefault();
     
-    const days = e.target.select.value;
     const primaryLifts = [];
     const auxiliaryLifts = [];
 
@@ -40,52 +41,75 @@ function Setup({ db, uid }) {
     const routine = makeNewRoutine(primaryLifts, auxiliaryLifts);
 
     set(ref(db, `users/${uid}`), {
-      days,
+      daysPerWeek,
       routine,
       lifts: {
         primary: primaryLifts,
         auxiliary: auxiliaryLifts
       }
     })
-    .then(() => console.log('saved to db'))
-    .catch((error) => console.log(error));
-    
+      .then(() => console.log('new routine saved'))
+      .catch((error) => console.log(error));
+  };
+
+  const routineRefresh = () => {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `/users/${uid}/lifts`))
+      .then((snapshot) => snapshot.val())
+      .then(({ primary, auxiliary }) => {
+        const routine = makeNewRoutine(primary, auxiliary);
+        return set(ref(db, `/users/${uid}`), {
+          daysPerWeek,
+          routine,
+          lifts: {
+            primary,
+            auxiliary
+          }
+        });
+      })
+      .then(() => console.log('new routine saved'))
+      .catch((error) => console.log(error));
   };
 
   return (
-    <form onSubmit={submitForm}>
-      <div className="my-3">
-          <a>lift </a>
-          {/* make selected reflect current */}
-          <select required name="select" className="select select-bordered w-full max-w-xs">
-            <option disabled selected></option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-          </select>
-          <a> times per week</a>
+    <div>
+      <h1>new routine setup</h1>
+      <div className="my-3" onChange={(e) => setDaysPerWeek(e.target.value)}>
+        <a>lift </a>
+        {/* make selected reflect current */}
+        <select required name="select" className="select select-bordered w-full max-w-xs">
+          <option disabled selected></option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+        </select>
+        <a> times per week</a>
       </div>
+      {daysPerWeek && (<div>
+        <form onSubmit={submitNewRoutineForm}>
+          <div className="divider">enter lifts and training maxes</div> 
+          <h5>choose primary and auxiliary lifts</h5>
+          <div className="join flex justify-between">
+            <div className="join-item">
+              <h6>primary lifts</h6>
+              {[0,1,2,3].map((i) => <LiftEntry category={'pri'} n={i}/>)}
+            </div>
 
-      <h5>choose primary and auxiliary lifts</h5>
-      <div className="join flex justify-between">
-        <div className="join-item">
-          <h6>primary lifts</h6>
-          {[0,1,2,3].map((i) => <LiftEntry category={'pri'} n={i}/>)}
-        </div>
-
-        <div className="join-item">
-          <h6>auxiliary lifts</h6>
-          {[0,1,2,3,4,5].map((i) => <LiftEntry category={'aux'} n={i}/>)}
-        </div>
-      </div>
-      
-      <div className="join justify-center">
-        <button className="btn btn-error join-item">cancel</button>
-        <button className="btn btn-success join-item" type="submit">done</button>
-      </div>
-      {/* change training max calc, intensity, or rep structure */}
-    </form>
+            <div className="join-item">
+              <h6>auxiliary lifts</h6>
+              {[0,1,2,3,4,5].map((i) => <LiftEntry category={'aux'} n={i}/>)}
+            </div>
+          </div>
+          <div className="flex justify-between w-full">
+            <button className="btn btn-error" onClick={() => setRoutineSetup(false)}>cancel</button>
+            <button className="btn btn-success" type="submit">done</button>
+          </div>
+          <div className="divider">or</div> 
+        </form>
+        <button className="btn w-full" onClick={routineRefresh}>use current lifts and training maxes</button>
+      </div>)}
+    </div>
   );
 }
 

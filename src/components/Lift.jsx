@@ -2,6 +2,7 @@ import { child, get, ref, update } from 'firebase/database';
 import { multipliers } from '../data/workout.json';
 import { useEffect, useState } from 'react';
 import { getPotentialLifts, updateWeight, roundWeight } from '../routine';
+import debounce from '../debounce';
 
 function SetButton({ reps }) {
   const [classes, setClasses] = useState('btn btn-active w-12');
@@ -21,16 +22,6 @@ function SetButton({ reps }) {
     </button>
   )
 }
-
-const debounce = (callback, wait) => {
-  let timerId;
-  return (...args) => {
-    clearTimeout(timerId);
-    timerId = setTimeout(() => { 
-      callback.apply(this, args)
-    }, wait);
-  };
-};
 
 function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, week, day, format, db, uid }) {
   const [lastSetPlaceholder, setLastSetPlaceholder] = useState(null);
@@ -108,10 +99,11 @@ function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, w
         })
         .then(() => console.log('updated successfully'))
         .catch((error) => console.log(error));
-    } 
+    }
   };
 
   const debouncedSaveProgress = debounce(saveProgress, 1500);
+  
   const handleChange = (e) => {
     debouncedSaveProgress(Number(e.target.value));
   };

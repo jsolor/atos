@@ -68,6 +68,13 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
     }
   };
 
+  const jumpTo = (e) => {
+    const w = Number(e.target.ariaRowIndex);
+    const d = Number(e.target.ariaColIndex);
+
+    setWeekDay(w, d);
+  };
+
   return (
     <div className="overflow-x-auto">
       {primaryLifts.length > 0 && (<div className="divider">primary</div>)}
@@ -110,6 +117,27 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           <button className="btn" onClick={() => changeWeek(-1)}>{'<<'}</button>
           <button className="btn" onClick={() => changeDay(-1)}>{'<'}</button>
         </div>
+        <button className="btn" onClick={()=>document.getElementById('jump_modal').showModal()}>jump</button>
+        <dialog id="jump_modal" className="modal w-auto">
+          <div className="modal-box">
+            <form method="dialog">
+              <div className="mt-4">
+                {((Array.from({ length: 19 }, (_, index) => index))).map((i) => (
+                  <div className="flex join mb-1">
+                    <button className="btn btn-disabled mr-1 join-item flex-1">W{i}</button>
+                    {((Array.from({ length: format }, (_, index) => index))).map((j) => 
+                      (i === week && j === day) 
+                        ? <button className="btn btn-active join-item flex-1" onClick={jumpTo} aria-rowindex={i} aria-colindex={j}>{j}</button> 
+                        : <button className="btn join-item flex-1" onClick={jumpTo} aria-rowindex={i} aria-colindex={j}>{j}</button>
+                      )}
+                  </div>)
+                )}
+              </div>
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+          </div>
+        </dialog>
         <div>
           <button className="btn" onClick={() => changeDay(1)}>{'>'}</button>
           <button className="btn" onClick={() => changeWeek(1)}>{'>>'}</button>

@@ -4,10 +4,11 @@ import LogIn from './LogIn';
 import Lifts from './Lifts';
 import Profile from './Profile';
 import Settings from './Settings';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, ref, update } from "firebase/database";
 import { getAuth, browserLocalPersistence, setPersistence } from "firebase/auth";
+import debounce from '../debounce';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -26,18 +27,33 @@ function App() {
   const [pageBody, setPageBody] = useState('LogIn');
   const [user, setUser] = useState(null);
   const [uid, setUid] = useState(null);
-  const [week, setWeek] = useState(0);
-  const [day, setDay] = useState(0);
+  const [week, setWeek] = useState(null);
+  const [day, setDay] = useState(null);
 
   useEffect(() => {
     if (!user) setUid(null);
     if (user && 'uid' in user) setUid(user.uid);
   }, [user]);
 
-  const setWeekDay = (w, d = day) => {
+const savePos = (w, d) => {
+    const dbRef = ref(db);
+
+    const updates = {};
+    updates[`/users/${uid}/pos/`] = { week: w, day: d };
+    
+    update(dbRef, updates)
+      .then(() => console.log('updated successfully'))
+      .catch((error) => console.log(error));
+  };
+
+  const debouncedSavePos = debounce(savePos, 4000);
+
+  const setWeekDay = useCallback((w, d = day) => {
     setWeek(w);
     setDay(d);
-  };
+
+    debouncedSavePos(w, d);
+  }, []);
 
   return (
     <div>

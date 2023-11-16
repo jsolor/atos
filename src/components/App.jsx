@@ -6,7 +6,7 @@ import Profile from './Profile';
 import Settings from './Settings';
 import { useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
-import { getDatabase, set } from "firebase/database";
+import { getDatabase } from "firebase/database";
 import { getAuth, browserLocalPersistence, setPersistence } from "firebase/auth";
 
 const firebaseConfig = {

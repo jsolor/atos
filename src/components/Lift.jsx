@@ -45,7 +45,6 @@ function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, w
   }, [lastSet, lastSetActual]);
 
   useEffect(() => {
-    console.log()
     setRoundedWeight(roundWeight(weight, roundBy));
   }, [weight, roundBy]);
 

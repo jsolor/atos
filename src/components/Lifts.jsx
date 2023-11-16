@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { child, get, ref } from 'firebase/database';
-import Lift from './Lift';
 import { formatWeek } from '../routine';
+import Lift from './Lift';
 
 function Lifts({ db, uid, week, day, setWeekDay }) {
   const [data, setData] = useState(null);
@@ -12,12 +12,14 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
   const [roundBy, setRoundBy] = useState(5);
   
   useEffect(() => {
-    const dbRef = ref(db);
-    get(child(dbRef, `users/${uid}`))
-      .then((snapshot) => {
-        setData(snapshot.val());
-      })
-      .catch((error) => console.log(error));
+    if (uid) {
+      const dbRef = ref(db);
+      get(child(dbRef, `users/${uid}`))
+        .then((snapshot) => {
+          setData(snapshot.val());
+        })
+        .catch((error) => console.log(error));
+    }
   }, [db, uid]);
 
   useEffect(() => {
@@ -36,16 +38,18 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
   }, [data]);
 
   useEffect(() => {
-    if (formattedRoutine.length) {
-      if ('primary' in formattedRoutine[week][day]) {
-        setPrimaryLifts(formattedRoutine[week][day].primary);
-      } else {
-        setPrimaryLifts([]);
-      }
-      if ('auxiliary' in formattedRoutine[week][day]) {
-        setAuxiliaryLifts(formattedRoutine[week][day].auxiliary);
-      } else {
-        setAuxiliaryLifts([]);
+    if ((week !== null) && (day !== null)) {
+      if (formattedRoutine.length) {
+        if ('primary' in formattedRoutine[week][day]) {
+          setPrimaryLifts(formattedRoutine[week][day].primary);
+        } else {
+          setPrimaryLifts([]);
+        }
+        if ('auxiliary' in formattedRoutine[week][day]) {
+          setAuxiliaryLifts(formattedRoutine[week][day].auxiliary);
+        } else {
+          setAuxiliaryLifts([]);
+        }
       }
     }
   }, [formattedRoutine, week, day]);

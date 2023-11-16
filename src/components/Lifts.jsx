@@ -3,7 +3,7 @@ import { child, get, ref } from 'firebase/database';
 import Lift from './Lift';
 import { formatWeek } from '../routine';
 
-function Lifts({ db, uid, week, setWeek, day, setDay }) {
+function Lifts({ db, uid, week, day, setWeekDay }) {
   const [data, setData] = useState(null);
   const [formattedRoutine, setFormattedRoutine] = useState([]);
   const [format, setFormat] = useState(3);
@@ -31,6 +31,7 @@ function Lifts({ db, uid, week, setWeek, day, setDay }) {
       setFormat(data.days);
       setFormattedRoutine(routine);
       setRoundBy(data.roundBy);
+      setWeekDay(data.pos.week, data.pos.day);
     }
   }, [data]);
 
@@ -50,28 +51,20 @@ function Lifts({ db, uid, week, setWeek, day, setDay }) {
   }, [formattedRoutine, week, day]);
 
   const changeWeek = (change) => {
-    if (week + change >= 18) {
-      setWeek(18);
-    } else if (week + change < 0) {
-      setWeek(0);
-    } else {
-      setWeek(week + change);
-    }
+    setWeekDay(Math.max(0, Math.min(week + change, 18)));
   };
 
   const changeDay = (change) => {
     if (day + change >= format) {
-      setDay(0);
-      changeWeek(1);
+      setWeekDay(week + 1, 0);
     } else if (day + change < 0) {
       if (day === 0 && week === 0) {
-        setDay(0);
+        setWeekDay(week, 0);
       } else {
-        setDay(format - 1);
-        changeWeek(-1);
+        setWeekDay(week - 1, format - 1);
       }
     } else {
-      setDay(day + change);
+      setWeekDay(week, day + change);
     }
   };
 

@@ -6,7 +6,7 @@ import Profile from './Profile';
 import Settings from './Settings';
 import { useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, set } from "firebase/database";
 import { getAuth, browserLocalPersistence, setPersistence } from "firebase/auth";
 
 const firebaseConfig = {
@@ -26,13 +26,18 @@ function App() {
   const [pageBody, setPageBody] = useState('LogIn');
   const [user, setUser] = useState(null);
   const [uid, setUid] = useState(null);
-  const [day, setDay] = useState(0);
   const [week, setWeek] = useState(0);
+  const [day, setDay] = useState(0);
 
   useEffect(() => {
     if (!user) setUid(null);
     if (user && 'uid' in user) setUid(user.uid);
   }, [user]);
+
+  const setWeekDay = (w, d = day) => {
+    setWeek(w);
+    setDay(d);
+  };
 
   return (
     <div>
@@ -40,7 +45,7 @@ function App() {
 
       {
         (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
-        (pageBody === 'Lifts' && <Lifts db={db} uid={uid} week={week} setWeek={setWeek} day={day} setDay={setDay} />) ||
+        (pageBody === 'Lifts' && <Lifts db={db} uid={uid} week={week} day={day} setWeekDay={setWeekDay} />) ||
         (pageBody === 'Profile' && <Profile db={db} uid={uid} />) ||
         (pageBody === 'Settings' && <Settings db={db} uid={uid} />)
       }

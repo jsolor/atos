@@ -1,7 +1,7 @@
 import { child, get, ref, update } from 'firebase/database';
 import { multipliers } from '../data/workout.json';
 import { useEffect, useState } from 'react';
-import { getPotentialLifts, updateWeight } from '../routine';
+import { getPotentialLifts, updateWeight, roundWeight } from '../routine';
 
 function SetButton({ reps }) {
   const [classes, setClasses] = useState('btn btn-active w-12');
@@ -32,8 +32,9 @@ const debounce = (callback, wait) => {
   };
 };
 
-function Lift({ name, weight, reps, lastSet, lastSetActual, category, week, day, format, db, uid }) {
+function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, week, day, format, db, uid }) {
   const [lastSetPlaceholder, setLastSetPlaceholder] = useState(null);
+  const [roundedWeight, setRoundedWeight] = useState(null);
 
   useEffect(() => {
     if (lastSetActual ?? false) {
@@ -43,6 +44,10 @@ function Lift({ name, weight, reps, lastSet, lastSetActual, category, week, day,
     }
   }, [lastSet, lastSetActual]);
 
+  useEffect(() => {
+    console.log()
+    setRoundedWeight(roundWeight(weight, roundBy));
+  }, [weight, roundBy]);
 
   const saveProgress = (val) => {
     const delta = val - lastSet;
@@ -117,7 +122,7 @@ function Lift({ name, weight, reps, lastSet, lastSetActual, category, week, day,
       <div>
         <div className="flex justify-between mb-1">
           <p className="text-xl italic">{name}</p>
-          <p className="text-xl">{weight}</p>
+          <p className="text-xl">{roundedWeight}</p>
         </div>
         <div>
           <div className="flex justify-center space-x-1">

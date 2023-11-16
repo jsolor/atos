@@ -26,6 +26,8 @@ function App() {
   const [pageBody, setPageBody] = useState('LogIn');
   const [user, setUser] = useState(null);
   const [uid, setUid] = useState(null);
+  const [day, setDay] = useState(0);
+  const [week, setWeek] = useState(0);
 
   useEffect(() => {
     if (!user) setUid(null);
@@ -34,7 +36,7 @@ function App() {
 
   return (
     <div>
-      {user && (<NavBar auth={auth} setUser={setUser} pageBody={pageBody} setPageBody={setPageBody} />)}
+      {user && (<NavBar auth={auth} setUser={setUser} pageBody={pageBody} setPageBody={setPageBody} week={week} day={day} />)}
 
       {
         (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||

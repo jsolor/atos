@@ -11,6 +11,7 @@ function Lifts({ db, uid }) {
   const [week, setWeek] = useState(0);
   const [primaryLifts, setPrimaryLifts] = useState([]);
   const [auxiliaryLifts, setAuxiliaryLifts] = useState([]);
+  const [roundBy, setRoundBy] = useState(5);
   
   useEffect(() => {
     const dbRef = ref(db);
@@ -31,6 +32,7 @@ function Lifts({ db, uid }) {
 
       setFormat(data.days);
       setFormattedRoutine(routine);
+      setRoundBy(data.roundBy);
     }
   }, [data]);
 
@@ -77,13 +79,13 @@ function Lifts({ db, uid }) {
 
   return (
     <div className="overflow-x-auto">
-      <h1>W{week} D{day}</h1>
       <div className="divider">primary</div> 
       {primaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
         <Lift 
           name={name}
           reps={reps}
           weight={weight}
+          roundBy={roundBy}
           lastSet={lastSet}
           lastSetActual={lastSetActual}
           category="primary"
@@ -100,6 +102,7 @@ function Lifts({ db, uid }) {
           name={name}
           reps={reps}
           weight={weight}
+          roundBy={roundBy}
           lastSet={lastSet}
           lastSetActual={lastSetActual}
           category="auxiliary"

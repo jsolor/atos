@@ -19,6 +19,7 @@ function LiftEntry({ category, n }) {
 
 function Setup({ db, uid, setRoutineSetup }) {
   const [daysPerWeek, setDaysPerWeek] = useState(null);
+  const [roundBy, setRoundBy] = useState(null);
   const submitNewRoutineForm = (e) => {
     e.preventDefault();
     
@@ -59,6 +60,7 @@ function Setup({ db, uid, setRoutineSetup }) {
         const routine = makeNewRoutine(primary, auxiliary);
         return set(ref(db, `/users/${uid}`), {
           days: daysPerWeek,
+          roundBy,
           routine,
           lifts: {
             primary,
@@ -75,7 +77,6 @@ function Setup({ db, uid, setRoutineSetup }) {
       <h1>new routine setup</h1>
       <div className="my-3" onChange={(e) => setDaysPerWeek(Number(e.target.value))}>
         <a>lift </a>
-        {/* make selected reflect current */}
         <select required name="select" className="select select-bordered w-full max-w-xs">
           <option disabled selected></option>
           <option>3</option>
@@ -85,7 +86,16 @@ function Setup({ db, uid, setRoutineSetup }) {
         </select>
         <a> times per week</a>
       </div>
-      {daysPerWeek && (<div>
+      <div className="my-3" onChange={(e) => setRoundBy(Number(e.target.value))}>
+        <a>rounding by </a>
+        <select required name="select" className="select select-bordered w-full max-w-xs">
+          <option disabled selected></option>
+          <option>2.5</option>
+          <option>5</option>
+        </select>
+        <a> lbs</a>
+      </div>
+      {(daysPerWeek && roundBy) && (<div>
         <form onSubmit={submitNewRoutineForm}>
           <div className="divider">enter lifts and training maxes</div> 
           <h5>choose primary and auxiliary lifts</h5>

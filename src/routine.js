@@ -82,4 +82,30 @@ function getPotentialLifts(day, category, format) {
   return schedules[format][day][category];
 }
 
-export { makeNewRoutine, formatWeek, updateWeight, getPotentialLifts };
+function roundWeight(weight, x) {
+  if (weight % x === 0) return weight;
+
+  if (x === 5) {
+    const rounded = Math.round(weight);
+    const remainder = rounded % x;
+    const onesPlace = rounded % 10;
+    
+    if (onesPlace <= 2 || onesPlace >= 6) {
+      return rounded - remainder;
+    } else {
+      return rounded + (x - remainder);
+    }
+  }
+  // x = 2.5
+  if (weight % 2.5 === 0) return weight;
+
+  const rounded = Math.round(weight * 10) / 10;
+  const remainder = rounded % 2.5;
+  
+  const additive = (rounded + (2.5 - remainder));
+  const subtractive = (rounded - remainder);
+
+  return Math.abs(rounded - additive) < Math.abs(rounded - subtractive) ? additive : subtractive;
+}
+
+export { makeNewRoutine, formatWeek, updateWeight, getPotentialLifts, roundWeight };

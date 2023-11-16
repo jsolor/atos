@@ -40,7 +40,7 @@ function App() {
 
       {
         (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
-        (pageBody === 'Lifts' && <Lifts db={db} uid={uid} />) ||
+        (pageBody === 'Lifts' && <Lifts db={db} uid={uid} week={week} setWeek={setWeek} day={day} setDay={setDay} />) ||
         (pageBody === 'Profile' && <Profile db={db} uid={uid} />) ||
         (pageBody === 'Settings' && <Settings db={db} uid={uid} />)
       }

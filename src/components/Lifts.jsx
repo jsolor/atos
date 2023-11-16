@@ -3,12 +3,10 @@ import { child, get, ref } from 'firebase/database';
 import Lift from './Lift';
 import { formatWeek } from '../routine';
 
-function Lifts({ db, uid }) {
+function Lifts({ db, uid, week, setWeek, day, setDay }) {
   const [data, setData] = useState(null);
   const [formattedRoutine, setFormattedRoutine] = useState([]);
   const [format, setFormat] = useState(3);
-  const [day, setDay] = useState(0);
-  const [week, setWeek] = useState(0);
   const [primaryLifts, setPrimaryLifts] = useState([]);
   const [auxiliaryLifts, setAuxiliaryLifts] = useState([]);
   const [roundBy, setRoundBy] = useState(5);
@@ -79,7 +77,7 @@ function Lifts({ db, uid }) {
 
   return (
     <div className="overflow-x-auto">
-      <div className="divider">primary</div> 
+      {primaryLifts.length > 0 && (<div className="divider">primary</div>)}
       {primaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
         <Lift 
           name={name}
@@ -96,7 +94,7 @@ function Lifts({ db, uid }) {
           uid={uid}
         />
       )}
-      <div className="divider">auxiliary</div> 
+      {auxiliaryLifts.length > 0 && (<div className="divider">auxiliary</div>)}
       {auxiliaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
         <Lift 
           name={name}

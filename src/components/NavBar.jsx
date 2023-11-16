@@ -1,7 +1,6 @@
 import { signOut } from 'firebase/auth';
-import { useEffect, useState } from 'react';
 
-function NavBar({ auth, setUser, pageBody, setPageBody }) {
+function NavBar({ auth, setUser, pageBody, setPageBody, week, day }) {
   const profileButton = (
     <button className="btn btn-ghost btn-circle" onClick={() => setPageBody('Profile')}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -43,7 +42,7 @@ function NavBar({ auth, setUser, pageBody, setPageBody }) {
         </div>
 
         <div className="navbar-center">
-          <a className="btn btn-ghost normal-case text-xl" onClick={() => setPageBody('Lifts')}>XL</a>
+          <a className="btn btn-ghost normal-case text-xl" onClick={() => setPageBody('Lifts')}>W{week} D{day}</a>
         </div>
 
         <div className="navbar-end">

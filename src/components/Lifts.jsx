@@ -80,7 +80,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div>
       {primaryLifts.length > 0 && (<div className="divider">primary</div>)}
       {primaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
         <Lift 
@@ -116,19 +116,19 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
         />
       )}
       
-      <div className="flex justify-between items-end fixed bottom-0 left-0 right-0 p-4">
-        <div>
-          <button className="btn" onClick={() => changeWeek(-1)}>{'<<'}</button>
-          <button className="btn" onClick={() => changeDay(-1)}>{'<'}</button>
+      <div className="flex flex-row flex-wrap justify-between fixed bottom-0 left-0 right-0 p-4">
+        <div className="join xs:order-1">
+          <button className="btn join-item" onClick={() => changeWeek(-1)}>{'<<'}</button>
+          <button className="btn join-item" onClick={() => changeDay(-1)}>{'<'}</button>
         </div>
-        <button className="btn" onClick={()=>document.getElementById('jump_modal').showModal()}>jump</button>
+        <button className="btn -order-1 xs:order-2 mb-1 xs:mb-0 min-w-full xs:min-w-max" onClick={()=>document.getElementById('jump_modal').showModal()}>jump</button>
         <dialog id="jump_modal" className="modal w-auto">
           <div className="modal-box">
             <form method="dialog">
               <div className="mt-4">
                 {((Array.from({ length: 19 }, (_, index) => index))).map((i) => (
-                  <div className="flex join mb-1">
-                    <button className="btn btn-disabled mr-1 join-item flex-1">W{i}</button>
+                  <div className="flex inline-flex m-1 join join-vertical sm:join-horizontal">
+                    <button className="btn btn-disabled sm:mr-1 join-item flex-1">W{i}</button>
                     {((Array.from({ length: format }, (_, index) => index))).map((j) => 
                       (i === week && j === day) 
                         ? <button className="btn btn-active join-item flex-1" onClick={jumpTo} aria-rowindex={i} aria-colindex={j}>{j}</button> 
@@ -142,9 +142,9 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
             </form>
           </div>
         </dialog>
-        <div>
-          <button className="btn" onClick={() => changeDay(1)}>{'>'}</button>
-          <button className="btn" onClick={() => changeWeek(1)}>{'>>'}</button>
+        <div className="join xs:order-3">
+          <button className="btn join-item" onClick={() => changeDay(1)}>{'>'}</button>
+          <button className="btn join-item" onClick={() => changeWeek(1)}>{'>>'}</button>
         </div>
       </div>
     </div>

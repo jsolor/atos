@@ -31,7 +31,7 @@ function NavBar({ auth, setUser, pageBody, setPageBody, week, day }) {
   };
 
   return (
-    <div>
+    <div className="w-screen">
       <div className="navbar bg-base-100">
 
         <div className="navbar-start">
@@ -47,9 +47,7 @@ function NavBar({ auth, setUser, pageBody, setPageBody, week, day }) {
 
         <div className="navbar-end">
           <button className="btn btn-ghost btn-circle" title="log out" onClick={logOut}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-              <path fill="currentColor" d="M112 216a8 8 0 0 1-8 8H48a16 16 0 0 1-16-16V48a16 16 0 0 1 16-16h56a8 8 0 0 1 0 16H48v160h56a8 8 0 0 1 8 8Zm109.66-93.66l-40-40a8 8 0 0 0-11.32 11.32L196.69 120H104a8 8 0 0 0 0 16h92.69l-26.35 26.34a8 8 0 0 0 11.32 11.32l40-40a8 8 0 0 0 0-11.32Z"></path>
-            </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="currentColor" d="M232 216h-24V40a16 16 0 0 0-16-16H64a16 16 0 0 0-16 16v176H24a8 8 0 0 0 0 16h208a8 8 0 0 0 0-16ZM192 40v176h-16V40ZM64 40h96v176H64Zm80 92a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z"></path></svg>
           </button>
         </div>
   

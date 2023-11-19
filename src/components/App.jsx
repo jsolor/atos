@@ -35,15 +35,15 @@ function App() {
     if (user && 'uid' in user) setUid(user.uid);
   }, [user]);
 
-const savePos = (w, d) => {
+  const savePos = (w, d) => {
     const dbRef = ref(db);
-
-    const updates = {};
-    updates[`/users/${uid}/pos/`] = { week: w, day: d };
     
-    update(dbRef, updates)
-      .then(() => console.log('updated successfully'))
-      .catch((error) => console.log(error));
+    const updates = {};
+    // updates[`/users/${uid}/pos/`] = { week: w, day: d };
+    
+    // update(dbRef, updates)
+    //   .then(() => console.log('updated successfully'))
+    //   .catch((error) => console.log(error));
   };
 
   const debouncedSavePos = debounce(savePos, 4000);
@@ -56,15 +56,17 @@ const savePos = (w, d) => {
   }, []);
 
   return (
-    <div>
+    <div className="w-screen h-screen">
       {user && (<NavBar auth={auth} setUser={setUser} pageBody={pageBody} setPageBody={setPageBody} week={week} day={day} />)}
 
-      {
-        (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
-        (pageBody === 'Lifts' && <Lifts db={db} uid={uid} week={week} day={day} setWeekDay={setWeekDay} />) ||
-        (pageBody === 'Profile' && <Profile db={db} uid={uid} />) ||
-        (pageBody === 'Settings' && <Settings db={db} uid={uid} />)
-      }
+      <div className="">
+        {
+          (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
+          (pageBody === 'Lifts' && <Lifts db={db} uid={uid} week={week} day={day} setWeekDay={setWeekDay} />) ||
+          (pageBody === 'Profile' && <Profile db={db} uid={uid} />) ||
+          (pageBody === 'Settings' && <Settings db={db} uid={uid} />)
+        }
+      </div>
     </div>
   );
 }

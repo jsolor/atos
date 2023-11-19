@@ -5,14 +5,14 @@ import { getPotentialLifts, updateWeight, roundWeight } from '../routine';
 import debounce from '../debounce';
 
 function SetButton({ reps }) {
-  const [classes, setClasses] = useState('btn btn-active w-12');
+  const [classes, setClasses] = useState('btn btn-active w-12 flex-1');
 
   const onClick = (e) => {
     e.preventDefault();
-    if (classes === 'btn btn-active w-12') {
-      setClasses('btn btn-success w-12');
+    if (classes === 'btn btn-active w-12 flex-1') {
+      setClasses('btn btn-success w-12 flex-1');
     } else {
-      setClasses('btn btn-active w-12')
+      setClasses('btn btn-active w-12 flex-1')
     }
   }
 
@@ -109,18 +109,16 @@ function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, w
   };
 
   return (
-    <div className="mb-6">
-      <div>
-        <div className="flex justify-between mb-1">
-          <p className="text-xl italic">{name}</p>
-          <p className="text-xl">{roundedWeight}</p>
+    <div className="mb-8 mx-auto w-11/12 sm:w-10/12 lg:w-9/12 min-w-min">
+      <div className="flex justify-between mb-1">
+        <p className="text-xl italic">{name}</p>
+        <p className="text-xl">{roundedWeight}</p>
+      </div>
+      <div className="flex justify-between max-w-full flex-wrap sm:flex-nowrap">
+        <div className="flex flex-grow space-x-1 mt-3 sm:mr-2">
+          {([0, 1, 2, 3]).map(() => <SetButton reps={reps} />)}
         </div>
-        <div>
-          <div className="flex justify-center space-x-1">
-            {([0, 1, 2, 3]).map(() => <SetButton reps={reps} />)}
-            <input type="number" className="input w-20" placeholder={lastSetPlaceholder} onChange={handleChange} />
-          </div>
-        </div>
+        <input type="number" className="flex-grow input input-bordered mt-3" placeholder={lastSetPlaceholder} onChange={handleChange} />
       </div>
     </div>
   );

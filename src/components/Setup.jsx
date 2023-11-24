@@ -5,14 +5,51 @@ import { useState } from "react";
 function LiftEntry({ category, n }) {
   const nameId = category + '-' + n + '-name';
   const weightId = category + '-' + n + '-weight';
+  
+  return (
+    <div className={`flex justify-end ${category === 'pri' ? 'mr-5' : ''}`}>
+      <input type="text" placeholder="name" name={nameId} required className="input input-bordered w-full mr-1 mb-1" />
+      <input type="number" placeholder="training max" name={weightId} required className="input input-bordered w-full max-w-xs" />
+    </div>
+  );
+}
+
+function LiftForm({ n }) {
+  let a1;
+  let a2;
+
+  switch (n) {
+    case 0:
+      a1 = 0;
+      a2 = 1;
+      break;
+    case 1:
+      a1 = 2;
+      a2 = 3;
+      break;
+    case 2:
+      a1 = 4;
+      break;
+    case 3:
+      a1 = 5;
+      break;
+    default:
+      break;
+  }
 
   return (
     <div>
-      <label className="label">
-        <span className="label-text">#{n}</span>
-      </label>
-      <input type="text" placeholder="lift name" name={nameId} required className="input input-bordered w-full max-w-xs m-0.5" />
-      <input type="number" placeholder="training max" name={weightId} required className="input input-bordered w-full max-w-xs m-0.5" />
+      <div className="flex justify-between">
+        <label>primary</label>
+        <label>auxiliary</label>
+      </div>
+      <div className="flex w-full justify-between mb-4">
+        <LiftEntry category={'pri'} n={n} />
+        <div className="flex flex-col">
+          <LiftEntry category={'aux'} n={a1} />
+          {n <= 1 && <LiftEntry category={'aux'} n={a2} />}
+        </div>
+      </div>
     </div>
   );
 }
@@ -73,11 +110,11 @@ function Setup({ db, uid, setRoutineSetup }) {
   };
 
   return (
-    <div>
-      <h1>new routine setup</h1>
+    <div className="w-10/12 mx-auto">
+      <h1 className="text-center text-xl">new routine setup</h1>
       <div className="my-3" onChange={(e) => setDaysPerWeek(Number(e.target.value))}>
         <a>lift </a>
-        <select required name="select" className="select select-bordered w-full max-w-xs">
+        <select required name="select" className="select select-bordered">
           <option disabled selected></option>
           <option>3</option>
           <option>4</option>
@@ -88,29 +125,22 @@ function Setup({ db, uid, setRoutineSetup }) {
       </div>
       <div className="my-3" onChange={(e) => setRoundBy(Number(e.target.value))}>
         <a>rounding by </a>
-        <select required name="select" className="select select-bordered w-full max-w-xs">
+        <select required name="select" className="select select-bordered">
           <option disabled selected></option>
           <option>2.5</option>
           <option>5</option>
         </select>
-        <a> lbs</a>
+        <a> pounds</a>
       </div>
       {(daysPerWeek && roundBy) && (<div>
         <form onSubmit={submitNewRoutineForm}>
           <div className="divider">enter lifts and training maxes</div> 
-          <h5>choose primary and auxiliary lifts</h5>
-          <div className="join flex justify-between">
-            <div className="join-item">
-              <h6>primary lifts</h6>
-              {[0,1,2,3].map((i) => <LiftEntry category={'pri'} n={i}/>)}
-            </div>
-
-            <div className="join-item">
-              <h6>auxiliary lifts</h6>
-              {[0,1,2,3,4,5].map((i) => <LiftEntry category={'aux'} n={i}/>)}
-            </div>
+          <div className="">
+            {[0, 1, 2, 3].map((i) => (
+              <LiftForm n={i} />
+            ))}
           </div>
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between w-full mt-4">
             <button className="btn btn-error" onClick={() => setRoutineSetup(false)}>cancel</button>
             <button className="btn btn-success" type="submit">done</button>
           </div>

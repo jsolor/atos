@@ -3,6 +3,21 @@ import { child, get, ref } from 'firebase/database';
 import { formatWeek } from '../routine';
 import Lift from './Lift';
 
+function JumpButton({ week, day, i, j, jumpTo }) {
+  const isCurrentDay = week === i && day === j;
+  const buttonClasses = `btn ${isCurrentDay ? 'btn-active' : ''} join-item flex-1`;
+  return (
+    <button 
+      className={buttonClasses}
+      onClick={jumpTo}
+      aria-rowindex={i}
+      aria-colindex={j}
+    >
+      {j}
+    </button>
+  );
+}
+
 function Lifts({ db, uid, week, day, setWeekDay }) {
   const [data, setData] = useState(null);
   const [formattedRoutine, setFormattedRoutine] = useState([]);
@@ -125,15 +140,13 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
         <dialog id="jump_modal" className="modal w-auto">
           <div className="modal-box">
             <form method="dialog">
-              <div className="mt-4">
+              <div className="flex flex-wrap mt-4">
                 {((Array.from({ length: 19 }, (_, index) => index))).map((i) => (
-                  <div className="flex inline-flex m-1 join join-vertical sm:join-horizontal">
+                  <div className="inline-flex flex-1 m-1 join join-vertical sm:join-horizontal">
                     <button className="btn btn-disabled sm:mr-1 join-item flex-1">W{i}</button>
                     {((Array.from({ length: format }, (_, index) => index))).map((j) => 
-                      (i === week && j === day) 
-                        ? <button className="btn btn-active join-item flex-1" onClick={jumpTo} aria-rowindex={i} aria-colindex={j}>{j}</button> 
-                        : <button className="btn join-item flex-1" onClick={jumpTo} aria-rowindex={i} aria-colindex={j}>{j}</button>
-                      )}
+                      (<JumpButton week={week} day={day} i={i} j={j} jumpTo={jumpTo} />)
+                    )}
                   </div>)
                 )}
               </div>

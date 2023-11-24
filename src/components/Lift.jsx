@@ -5,19 +5,14 @@ import { getPotentialLifts, updateWeight, roundWeight } from '../routine';
 import debounce from '../debounce';
 
 function SetButton({ reps }) {
-  const [classes, setClasses] = useState('btn btn-active w-12 flex-1');
+  const [isPressed, setPressed] = useState(false);
 
-  const onClick = (e) => {
-    e.preventDefault();
-    if (classes === 'btn btn-active w-12 flex-1') {
-      setClasses('btn btn-success w-12 flex-1');
-    } else {
-      setClasses('btn btn-active w-12 flex-1')
-    }
+  const onClick = () => {
+    setPressed(!isPressed);
   }
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button className={`btn ${isPressed ? 'btn-success' : 'btn-active'} w-12 flex-1`} onClick={onClick}>
       {reps}
     </button>
   )
@@ -109,7 +104,7 @@ function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, w
   };
 
   return (
-    <div className="mb-8 mx-auto w-11/12 sm:w-10/12 lg:w-9/12 min-w-min">
+    <div className="mb-8 mx-auto w-10/12 lg:w-9/12 min-w-min">
       <div className="flex justify-between mb-1">
         <p className="text-xl italic">{name}</p>
         <p className="text-xl">{roundedWeight}</p>

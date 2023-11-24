@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 function LiftRow({ name, weight }) {
   return (
     <tr>
-      <th></th>
       <td>{name}</td>
       <td>{weight}</td>
     </tr>
@@ -12,21 +11,12 @@ function LiftRow({ name, weight }) {
 }
 
 function Profile({ db, uid }) {
-  const [primaryTab, setPrimaryTab] = useState('tab tab-active');
-  const [auxiliaryTab, setAuxiliaryTab] = useState('tab');
+  const [primaryActive, setPrimaryActive] = useState(true);
   const [primaryLifts, setPrimaryLifts] = useState([]);
   const [auxiliaryLifts, setAuxiliaryLifts] = useState([]);
 
-  const setActiveTab = (e) => {
-    e.preventDefault();
-    
-    if (e.target.name === 'primary-tab') {
-      setPrimaryTab('tab tab-active');
-      setAuxiliaryTab('tab');
-    } else {
-      setPrimaryTab('tab');
-      setAuxiliaryTab('tab tab-active');
-    }
+  const setActiveTab = () => {
+    setPrimaryActive(!primaryActive);
   };
 
   useEffect(() => {
@@ -44,22 +34,21 @@ function Profile({ db, uid }) {
     <div>
       <div>
         <div className="tabs">
-          <a className={primaryTab} name="primary-tab" onClick={setActiveTab}>Primary</a>
-          <a className={auxiliaryTab} name="auxiliary-tab" onClick={setActiveTab}>Auxiliary</a>
+          <a className={`tab tab-lifted ${primaryActive ? 'tab-active' : ''}`} name="primary-tab" onClick={setActiveTab}>Primary</a>
+          <a className={`tab tab-lifted ${primaryActive ? '' : 'tab-active'} `} name="auxiliary-tab" onClick={setActiveTab}>Auxiliary</a>
         </div>
 
         <div className="overflow-x-auto">
           <table className="table table-zebra">
             <thead>
               <tr>
-                <th></th>
                 <th>Name</th>
                 <th>Estimated Training Max</th>
               </tr>
             </thead>
             <tbody>
-              {primaryTab !== 'tab' && (primaryLifts).map(({ name, weight }) => <LiftRow name={name} weight={weight} />)}
-              {primaryTab === 'tab' && (auxiliaryLifts).map(({ name, weight }) => <LiftRow name={name} weight={weight} />)}
+              {primaryActive && (primaryLifts).map(({ name, weight }) => <LiftRow name={name} weight={weight} />)}
+              {!primaryActive && (auxiliaryLifts).map(({ name, weight }) => <LiftRow name={name} weight={weight} />)}
             </tbody>
           </table>
         </div>

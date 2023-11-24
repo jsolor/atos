@@ -21,12 +21,12 @@ function Settings({ db, uid }) {
 
   return (
     <div>
-      {!routineSetup && (<div>
+      {!routineSetup && (<div className="flex w-10/12 my-8 mx-auto justify-between">
         <button className="btn" style={deleteStyle} onClick={()=>document.getElementById('delete_modal').showModal()}>delete routine</button>
         <dialog id="delete_modal" className="modal">
           <div className="modal-box">
             <h3 className="font-bold text-lg">Are you sure?</h3>
-            <form method="dialog">
+            <form method="dialog" className="flex justify-end">
               <button className="btn" onClick={deleteRoutine}>yes</button>
               {/* if there is a button in form, it will close the modal */}
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>

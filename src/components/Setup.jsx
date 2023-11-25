@@ -7,9 +7,9 @@ function LiftEntry({ category, n }) {
   const weightId = category + '-' + n + '-weight';
   
   return (
-    <div className={`flex justify-end ${category === 'pri' ? 'mr-5' : ''}`}>
-      <input type="text" placeholder="name" name={nameId} required className="input input-bordered w-full mr-1 mb-1" />
-      <input type="number" placeholder="training max" name={weightId} required className="input input-bordered w-full max-w-xs" />
+    <div className={`flex flex-1 flex-wrap ${category === 'pri' ? 'md:mr-2' : ''}`}>
+      <input type="text" placeholder="name" name={nameId} required className="input input-bordered flex w-full mb-1" />
+      <input type="number" placeholder="training max" name={weightId} required className="input input-bordered flex w-full mb-1" />
     </div>
   );
 }
@@ -39,15 +39,17 @@ function LiftForm({ n }) {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <label>primary</label>
-        <label>auxiliary</label>
-      </div>
-      <div className="flex w-full justify-between mb-4">
-        <LiftEntry category={'pri'} n={n} />
-        <div className="flex flex-col">
-          <LiftEntry category={'aux'} n={a1} />
-          {n <= 1 && <LiftEntry category={'aux'} n={a2} />}
+      <div className="flex flex-col md:flex-row mb-5 justify-between">
+        <div className="flex flex-wrap content-start">
+          <a className="label w-full">pri</a>
+          <LiftEntry category={'pri'} n={n} />
+        </div>
+        <div className="flex flex-wrap">
+          <a className="label w-full justify-end">aux</a>
+          <div className="flex flex-col flex-1">
+            <LiftEntry category={'aux'} n={a1} />
+            {n <= 1 && <LiftEntry category={'aux'} n={a2} />}
+          </div>
         </div>
       </div>
     </div>
@@ -146,7 +148,7 @@ function Setup({ db, uid, setRoutineSetup }) {
           </div>
           <div className="divider">or</div> 
         </form>
-        <button className="btn w-full" onClick={routineRefresh}>use current lifts and training maxes</button>
+        <button className="btn w-full mb-5" onClick={routineRefresh}>use current lifts and training maxes</button>
       </div>)}
     </div>
   );

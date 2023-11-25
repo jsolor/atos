@@ -31,8 +31,8 @@ function NavBar({ auth, setUser, pageBody, setPageBody, week, day }) {
   };
 
   return (
-    <div className="w-screen">
-      <div className="navbar bg-base-100">
+    <div>
+      <div className="navbar mx-auto bg-base-100">
 
         <div className="navbar-start">
           <div className="navbar-start">          

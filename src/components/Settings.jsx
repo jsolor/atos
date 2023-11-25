@@ -21,7 +21,7 @@ function Settings({ db, uid }) {
 
   return (
     <div>
-      {!routineSetup && (<div className="flex w-10/12 my-8 mx-auto justify-between">
+      {!routineSetup && (<div className="flex flex-col sm:flex-row w-10/12 my-8 mx-auto justify-between">
         <button className="btn" style={deleteStyle} onClick={()=>document.getElementById('delete_modal').showModal()}>delete routine</button>
         <dialog id="delete_modal" className="modal">
           <div className="modal-box">

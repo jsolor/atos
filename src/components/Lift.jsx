@@ -12,7 +12,7 @@ function SetButton({ reps }) {
   }
 
   return (
-    <button className={`btn ${isPressed ? 'btn-success' : 'btn-active'} w-12 flex-1`} onClick={onClick}>
+    <button className={`btn ${isPressed ? 'btn-success' : 'btn-active'} flex-1`} onClick={onClick}>
       {reps}
     </button>
   )
@@ -21,6 +21,22 @@ function SetButton({ reps }) {
 function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, week, day, format, db, uid }) {
   const [lastSetPlaceholder, setLastSetPlaceholder] = useState(null);
   const [roundedWeight, setRoundedWeight] = useState(null);
+  const [isWrapped, setIsWrapped] = useState(null);
+
+  const checkIfWrapped = () => {
+    const setButtons = document.getElementById(category + '-' + name + '-set-buttons');
+    const lastSetInputs = document.getElementById(category + '-' + name + '-input');
+
+    Math.round(setButtons.offsetTop) === Math.round(lastSetInputs.offsetTop) ? setIsWrapped(false) : setIsWrapped(true);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', checkIfWrapped);
+
+    return () => {
+      window.removeEventListener('resize', checkIfWrapped);
+    }
+  }, []);
 
   useEffect(() => {
     if (lastSetActual ?? false) {
@@ -104,16 +120,16 @@ function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, w
   };
 
   return (
-    <div className="mb-8 mx-auto w-10/12 lg:w-9/12 min-w-min">
+    <div className="mb-8 min-w-min">
       <div className="flex justify-between mb-1">
         <p className="text-xl italic">{name}</p>
         <p className="text-xl">{roundedWeight}</p>
       </div>
-      <div className="flex justify-between max-w-full flex-wrap sm:flex-nowrap">
-        <div className="flex flex-grow space-x-1 mt-3 sm:mr-2">
+      <div className="flex flex-wrap justify-between max-w-full">
+        <div className="flex flex-1 space-x-1 mt-3" id={category + '-' + name + '-set-buttons'}>
           {([0, 1, 2, 3]).map(() => <SetButton reps={reps} />)}
         </div>
-        <input type="number" className="flex-grow input input-bordered mt-3" placeholder={lastSetPlaceholder} onChange={handleChange} />
+        <input type="number" className={`input input-bordered flex-1 mt-3 text-end ${isWrapped ? '' : 'ml-2'}`} id={category + '-' + name + '-input'} placeholder={lastSetPlaceholder} onChange={handleChange} />
       </div>
     </div>
   );

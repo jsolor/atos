@@ -4,10 +4,10 @@ module.exports = {
   theme: {
     screens: {
       'xs': '300px',
-      // => @media (min-width: 280px) { ... }
+      // => @media (min-width: 300px) { ... }
 
       'sm': '460px',
-      // => @media (min-width: 640px) { ... }
+      // => @media (min-width: 460px) { ... }
 
       'md': '768px',
       // => @media (min-width: 768px) { ... }

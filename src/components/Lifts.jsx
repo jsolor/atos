@@ -102,7 +102,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
 
     update(dbRef, updates)
       .then(() => console.log('updated successfully'))
-      .then(() => setAccessoryLifts(...accessoryLifts, accessory))
+      .then(() => setAccessoryLifts([...accessoryLifts, accessory]))
       .catch((error) => console.log(error));
 
     setAddAccessoryLift(false);

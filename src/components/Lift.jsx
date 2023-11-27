@@ -18,7 +18,7 @@ function SetButton({ reps }) {
   )
 }
 
-function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, week, day, format, db, uid }) {
+function Lift({ name, weight, roundBy, sets = 4, reps, lastSet, lastSetActual, category, week, day, format, db, uid }) {
   const [lastSetPlaceholder, setLastSetPlaceholder] = useState(null);
   const [roundedWeight, setRoundedWeight] = useState(null);
   const [isWrapped, setIsWrapped] = useState(null);
@@ -31,10 +31,12 @@ function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, w
   };
 
   useEffect(() => {
-    window.addEventListener('resize', checkIfWrapped);
+    if (category !== 'accessory') {
+      window.addEventListener('resize', checkIfWrapped);
 
-    return () => {
-      window.removeEventListener('resize', checkIfWrapped);
+      return () => {
+        window.removeEventListener('resize', checkIfWrapped);
+      }
     }
   }, []);
 
@@ -47,7 +49,7 @@ function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, w
   }, [lastSet, lastSetActual]);
 
   useEffect(() => {
-    setRoundedWeight(roundWeight(weight, roundBy));
+    roundBy ? setRoundedWeight(roundWeight(weight, roundBy)) : setRoundedWeight(weight);
   }, [weight, roundBy]);
 
   const saveProgress = (val) => {
@@ -127,9 +129,11 @@ function Lift({ name, weight, roundBy, reps, lastSet, lastSetActual, category, w
       </div>
       <div className="flex flex-wrap justify-between max-w-full">
         <div className="flex flex-1 space-x-1 mt-3" id={category + '-' + name + '-set-buttons'}>
-          {([0, 1, 2, 3]).map(() => <SetButton reps={reps} />)}
+          {((Array.from({ length: sets }, (_, index) => index))).map(() => 
+            (<SetButton reps={reps} />)
+          )}
         </div>
-        <input type="number" className={`input input-bordered flex-1 mt-3 text-end ${isWrapped ? '' : 'ml-2'}`} id={category + '-' + name + '-input'} placeholder={lastSetPlaceholder} onChange={handleChange} />
+        {category !== 'accessory' && <input type="number" className={`input input-bordered flex-1 mt-3 text-end ${isWrapped ? '' : 'ml-2'}`} id={category + '-' + name + '-input'} placeholder={lastSetPlaceholder} onChange={handleChange} />}
       </div>
     </div>
   );

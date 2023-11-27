@@ -139,9 +139,9 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
       {primaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
         <Lift 
           name={name}
-          reps={reps}
           weight={weight}
           roundBy={roundBy}
+          reps={reps}
           lastSet={lastSet}
           lastSetActual={lastSetActual}
           category="primary"
@@ -156,9 +156,9 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
       {auxiliaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
         <Lift 
           name={name}
-          reps={reps}
           weight={weight}
           roundBy={roundBy}
+          reps={reps}
           lastSet={lastSet}
           lastSetActual={lastSetActual}
           category="auxiliary"
@@ -170,18 +170,16 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
         />
       )}
       <div className="divider">accessory</div>
-      {accessoryLifts.map(({ name, reps, weight, sets }) => (
-        <div className="mb-8 w-full">
-          <div className="flex justify-between mb-1">
-            <p className="text-xl italic">{name}</p>
-            <p className="text-xl">{weight}</p>
-          </div>
-          <div className="flex flex-grow space-x-1 mt-3 w-full">
-            {((Array.from({ length: sets }, (_, index) => index))).map((i) => 
-              (<button className="btn btn-active flex-1">{reps}</button>)
-            )}
-          </div>
-        </div>
+      {accessoryLifts.map(({ name, sets, reps, weight }) => (
+        <Lift
+          name={name}
+          weight={weight}
+          sets={sets}
+          reps={reps}
+          category="accessory"
+          db={db}
+          uid={uid}
+        />
       ))}
       {addAccessoryLift && (<form onSubmit={submitAccessoryLift}>
         <div className="flex justify-between w-full mb-2">

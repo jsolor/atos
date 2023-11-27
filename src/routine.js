@@ -24,6 +24,7 @@ function makeNewRoutine(primaryLifts, auxiliaryLifts) {
       priLifts.push({
         name,
         weight: trainingWeight,
+        setsCompleted: 0,
         reps: priReps,
         lastSet: priLastSet
       });
@@ -36,6 +37,7 @@ function makeNewRoutine(primaryLifts, auxiliaryLifts) {
       auxLifts.push({
         name,
         weight: trainingWeight,
+        setsCompleted: 0,
         reps: auxReps,
         lastSet: auxLastSet
       });
@@ -108,4 +110,8 @@ function roundWeight(weight, x) {
   return Math.abs(rounded - additive) < Math.abs(rounded - subtractive) ? additive : subtractive;
 }
 
-export { makeNewRoutine, formatWeek, updateWeight, getPotentialLifts, roundWeight };
+function getIndices(format, day, category) {
+  return schedules[format][day][category];
+}
+
+export { makeNewRoutine, formatWeek, updateWeight, getPotentialLifts, roundWeight, getIndices };

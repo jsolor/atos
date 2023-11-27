@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { child, get, ref, update } from 'firebase/database';
-import { formatWeek } from '../routine';
+import { formatWeek, getIndices } from '../routine';
 import Lift from './Lift';
 
 function JumpButton({ week, day, i, j, jumpTo }) {
@@ -27,22 +27,29 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
   const [auxiliaryLifts, setAuxiliaryLifts] = useState([]);
   const [accessoryLifts, setAccessoryLifts] = useState([]);
   const [addAccessoryLift, setAddAccessoryLift] = useState(false);
+  const [primaryIndices, setPrimaryIndices] = useState([]);
+  const [auxiliaryIndices, setAuxiliaryIndices] = useState([]);
   
+  const refreshData = () => {
+    const dbRef = ref(db);
+    get(child(dbRef, `users/${uid}`))
+      .then((snapshot) => {
+        setData(snapshot.val());
+      })
+      .then(() => console.log('data refreshed'))
+      .catch((error) => console.log(error));
+  };
+
   useEffect(() => {
     if (uid) {
-      const dbRef = ref(db);
-      get(child(dbRef, `users/${uid}`))
-        .then((snapshot) => {
-          setData(snapshot.val());
-        })
-        .catch((error) => console.log(error));
+      refreshData();
     }
   }, [db, uid]);
 
   useEffect(() => {
     if (data) {
       const routine = [];
-
+      
       for (let i = 0; i < data.routine.length; i++) {
         routine.push(formatWeek(data.days + 'x', data.routine[i]));
       }
@@ -59,11 +66,13 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
       if (formattedRoutine.length) {
         if ('primary' in formattedRoutine[week][day]) {
           setPrimaryLifts(formattedRoutine[week][day].primary);
+          setPrimaryIndices(getIndices(format + 'x', day, 'primary'))
         } else {
           setPrimaryLifts([]);
         }
         if ('auxiliary' in formattedRoutine[week][day]) {
           setAuxiliaryLifts(formattedRoutine[week][day].auxiliary);
+          setAuxiliaryIndices(getIndices(format + 'x', day, 'auxiliary'));
         } else {
           setAuxiliaryLifts([]);
         }
@@ -91,6 +100,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
       name: accessoryName,
       weight: accessoryWeight,
       sets: accessorySets,
+      setsCompleted: 0,
       reps: accessoryReps
     };
 
@@ -136,12 +146,14 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
   return (
     <div className="w-10/12 lg:w-9/12 mx-auto">
       {primaryLifts.length > 0 && (<div className="divider">primary</div>)}
-      {primaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
+      {primaryLifts.map(({ name, weight, reps, setsCompleted, lastSet, lastSetActual }, index) => 
         <Lift 
+          index={primaryIndices[index]}
           name={name}
           weight={weight}
           roundBy={roundBy}
           reps={reps}
+          setsCompleted={setsCompleted}
           lastSet={lastSet}
           lastSetActual={lastSetActual}
           category="primary"
@@ -150,15 +162,18 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           format={format}
           db={db}
           uid={uid}
+          refresh={refreshData}
         />
       )}
       {auxiliaryLifts.length > 0 && (<div className="divider">auxiliary</div>)}
-      {auxiliaryLifts.map(({ name, reps, weight, lastSet, lastSetActual }) => 
-        <Lift 
+      {auxiliaryLifts.map(({ name, weight, reps, setsCompleted, lastSet, lastSetActual }, index) => 
+        <Lift
+          index={auxiliaryIndices[index]}
           name={name}
           weight={weight}
           roundBy={roundBy}
           reps={reps}
+          setsCompleted={setsCompleted}
           lastSet={lastSet}
           lastSetActual={lastSetActual}
           category="auxiliary"
@@ -167,18 +182,24 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           format={format}
           db={db}
           uid={uid}
+          refresh={refreshData}
         />
       )}
       <div className="divider">accessory</div>
-      {accessoryLifts.map(({ name, sets, reps, weight }) => (
+      {accessoryLifts.map(({ name, sets, setsCompleted, reps, weight }, index) => (
         <Lift
+          index={index}
           name={name}
           weight={weight}
           sets={sets}
+          setsCompleted={setsCompleted}
           reps={reps}
           category="accessory"
+          week={week}
+          day={day}
           db={db}
           uid={uid}
+          refresh={refreshData}
         />
       ))}
       {addAccessoryLift && (<form onSubmit={submitAccessoryLift}>

@@ -39,14 +39,14 @@ function App() {
     const dbRef = ref(db);
     
     const updates = {};
-    // updates[`/users/${uid}/pos/`] = { week: w, day: d };
+    updates[`/users/${uid}/pos/`] = { week: w, day: d };
     
-    // update(dbRef, updates)
-    //   .then(() => console.log('updated successfully'))
-    //   .catch((error) => console.log(error));
+    update(dbRef, updates)
+      .then(() => console.log('updated w,d'))
+      .catch((error) => console.log(error));
   };
 
-  const debouncedSavePos = debounce(savePos, 4000);
+  const debouncedSavePos = debounce(savePos, 3000);
 
   const setWeekDay = useCallback((w, d = day) => {
     setWeek(w);

@@ -67,10 +67,10 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
         } else {
           setAuxiliaryLifts([]);
         }
+        if ('accessory' in data['routine'][week] && day in data['routine'][week]['accessory']) {
+          setAccessoryLifts(data['routine'][week]['accessory'][day]);
+        } else setAccessoryLifts([]);
       }
-      if (data['accessory'][week][day]) {
-        setAccessoryLifts(data['accessory'][week][day]);
-      } else setAccessoryLifts([]);
     }
   }, [formattedRoutine, week, day]);
 
@@ -97,7 +97,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
     const dbRef = ref(db);
 
     const updates = {};
-    updates[`/users/${uid}/accessory/${week}/${day}`] = [...accessoryLifts, accessory];
+    updates[`/users/${uid}/routine/${week}/accessory/${day}`] = [...accessoryLifts, accessory];
     updates[`/users/${uid}/lifts/accessory/${accessoryName}`] = true;
 
     update(dbRef, updates)

@@ -1,4 +1,3 @@
-import './App.css'
 import NavBar from './NavBar';
 import LogIn from './LogIn';
 import Lifts from './Lifts';

@@ -70,7 +70,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
       }
       if (data['accessory'][week][day]) {
         setAccessoryLifts(data['accessory'][week][day]);
-      }
+      } else setAccessoryLifts([]);
     }
   }, [formattedRoutine, week, day]);
 

@@ -62,29 +62,34 @@ function Setup({ db, uid, setRoutineSetup }) {
   const submitNewRoutineForm = (e) => {
     e.preventDefault();
     
-    const primaryLifts = [];
-    const auxiliaryLifts = [];
+    const primary = [];
+    const auxiliary = [];
 
     for (let i = 0; i < 4; i++) {
       const prefix = 'pri-' + i;
       const name = e.target[prefix + '-name'].value;
       const weight = Number(e.target[prefix + '-weight'].value);
-      primaryLifts.push({ name, weight });
+      primary.push({ name, weight });
     }
     for (let i = 0; i < 6; i++) {
       const prefix = 'aux-' + i;
       const name = e.target[prefix + '-name'].value;
       const weight = Number(e.target[prefix + '-weight'].value);
-      auxiliaryLifts.push({ name, weight });
+      auxiliary.push({ name, weight });
     }
 
-    const routine = makeNewRoutine(primaryLifts, auxiliaryLifts);
+    const routine = makeNewRoutine(primary, auxiliary);
     set(ref(db, `users/${uid}`), {
       days: daysPerWeek,
+      roundBy,
       routine,
+      pos: { 
+        week: 0,
+        day: 0
+      },
       lifts: {
-        primary: primaryLifts,
-        auxiliary: auxiliaryLifts
+        primary,
+        auxiliary
       }
     })
       .then(() => console.log('new routine saved'))
@@ -101,6 +106,10 @@ function Setup({ db, uid, setRoutineSetup }) {
           days: daysPerWeek,
           roundBy,
           routine,
+          pos: {
+            week: 0,
+            day: 0
+          },
           lifts: {
             primary,
             auxiliary

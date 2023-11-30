@@ -25,5 +25,31 @@ export default {
       // => @media (min-width: 1536px) { ... }
     }
   },
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+        
+        "primary": "#000000",
+                
+        "secondary": "#424651",
+                
+        "accent": "#051014",
+                
+        "neutral": "#A4BEF3",
+                
+        "base-100": "#051014",
+                
+        "info": "#BCE7FD",
+                
+        "success": "#B0FF92",
+                
+        "warning": "#E09F3E",
+                
+        "error": "#540B0E",
+        },
+      },
+    ],
+  },
   plugins: [require("daisyui")],
 }

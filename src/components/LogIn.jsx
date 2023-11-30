@@ -61,13 +61,13 @@ function LogIn({ auth, setUser, setPageBody }) {
   });
 
   return (
-    <div className="flex justify-center items-center text-center mt-40">
+    <div className="flex justify-center items-center text-center pt-40 w-3/4 mx-auto">
       <form onSubmit={formSubmission} className="w-96">
         <div className="flex flex-col">
           <input type="email" placeholder="email" name="email" required className="input input-bordered mb-1" />
           <input type="password" placeholder="password" name="password" required className="input input-bordered mb-1" />
           {registration && (<input type="password" placeholder="re-enter password" name="reentered" required className="input input-bordered mb-1" />)}
-          <button className="btn">submit</button>
+          <button className="btn btn-outline">submit</button>
           <a href="#" onClick={toggleRegistration} className="no-underline hover:underline ...">{linkText}</a>
         </div>
       </form>

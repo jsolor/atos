@@ -29,25 +29,21 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
   const [addAccessoryLift, setAddAccessoryLift] = useState(false);
   const [primaryIndices, setPrimaryIndices] = useState([]);
   const [auxiliaryIndices, setAuxiliaryIndices] = useState([]);
-  
-  const refreshData = () => {
-    const dbRef = ref(db);
-    get(child(dbRef, `users/${uid}`))
-      .then((snapshot) => {
-        setData(snapshot.val());
-      })
-      .then(() => console.log('data refreshed'))
-      .catch((error) => console.log(error));
-  };
 
   useEffect(() => {
     if (uid) {
-      refreshData();
+      const dbRef = ref(db);
+      get(child(dbRef, `users/${uid}`))
+        .then((snapshot) => {
+          setData(snapshot.val());
+        })
+        .then(() => console.log('data refreshed'))
+        .catch((error) => console.log(error));
     }
   }, [db, uid]);
 
   useEffect(() => {
-    if (data) {
+    if (data && 'routine' in data) {
       const routine = [];
       
       for (let i = 0; i < data.routine.length; i++) {
@@ -69,7 +65,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           setPrimaryIndices(getIndices(format + 'x', day, 'primary'))
         } else {
           setPrimaryLifts([]);
-        }
+        }9
         if ('auxiliary' in formattedRoutine[week][day]) {
           setAuxiliaryLifts(formattedRoutine[week][day].auxiliary);
           setAuxiliaryIndices(getIndices(format + 'x', day, 'auxiliary'));
@@ -103,18 +99,32 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
       setsCompleted: 0,
       reps: accessoryReps
     };
+    
+    setData((prevData) => {
+      const newData = JSON.parse(JSON.stringify(prevData));
+      const accessoryCheck = newData.routine[week].accessory;
+      
+      if (accessoryCheck) {
+        newData.routine[week].accessory[day] = [...accessoryCheck[day], accessory];
+      } else {
+        const daysAccesories = {};
+        daysAccesories[day] = [accessory];
+        newData.routine[week].accessory = daysAccesories;
+      }
 
-    const dbRef = ref(db);
+      const dbRef = ref(db);
+      const updates = {};
 
-    const updates = {};
-    updates[`/users/${uid}/routine/${week}/accessory/${day}`] = [...accessoryLifts, accessory];
-    updates[`/users/${uid}/lifts/accessory/${accessoryName}`] = true;
+      updates[`/users/${uid}/routine/${week}/accessory/${day}`] = newData.routine[week].accessory[day];
+      updates[`/users/${uid}/lifts/accessory/${accessoryName}`] = true;
 
-    update(dbRef, updates)
-      .then(() => console.log('updated successfully'))
-      .then(() => setAccessoryLifts([...accessoryLifts, accessory]))
-      .catch((error) => console.log(error));
-
+      update(dbRef, updates)
+        .then(() => console.log('updated successfully'))
+        .catch((error) => console.log(error));
+      
+      return newData;
+    });
+    
     setAddAccessoryLift(false);
   };
 
@@ -143,63 +153,99 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
     setWeekDay(w, d);
   };
 
+  const updateSetsCompleted = (category, index, count) => {
+    const endPoint = category === 'accessory' ? `/${day}/${index}/setsCompleted` : `/${index}/setsCompleted`;
+    const path = `/users/${uid}/routine/${week}/${category}` + endPoint;
+
+    const dbRef = ref(db);
+  
+    const updates = {};
+    updates[path] = count;
+    
+    update(dbRef, updates)
+      .then(() => console.log('updated sets completed'))
+      .then(() => setData((oldData) => {
+        const newData = { ...oldData };
+        
+        if (category === 'accessory' ) newData.routine[week][category][day][index]['setsCompleted'] = count;
+        else newData.routine[week][category][index]['setsCompleted'] = count;
+
+        return newData;
+      }))
+      .catch((error) => console.log(error));
+  };
+
+  const updateLastSetActual = (category, index, val) => {
+    setData((oldData) => {
+      const newData = JSON.parse(JSON.stringify(oldData));
+      newData.routine[week][category][index]['lastSetActual'] = val;
+
+      return newData;
+    });
+  };
+
   return (
     <div className="w-10/12 lg:w-9/12 mx-auto">
       {primaryLifts.length > 0 && (<div className="divider">primary</div>)}
       {primaryLifts.map(({ name, weight, reps, setsCompleted, lastSet, lastSetActual }, index) => 
         <Lift 
+          key={index + '-primary-' + name + '-' + week + '-' + day}
           index={primaryIndices[index]}
           name={name}
           weight={weight}
           roundBy={roundBy}
           reps={reps}
           setsCompleted={setsCompleted}
+          updateSetsCompleted={updateSetsCompleted}
           lastSet={lastSet}
           lastSetActual={lastSetActual}
+          updateLastSetActual={updateLastSetActual}
           category="primary"
           week={week}
           day={day}
           format={format}
           db={db}
           uid={uid}
-          refresh={refreshData}
         />
       )}
       {auxiliaryLifts.length > 0 && (<div className="divider">auxiliary</div>)}
       {auxiliaryLifts.map(({ name, weight, reps, setsCompleted, lastSet, lastSetActual }, index) => 
         <Lift
+          key={index + '-auxiliary-' + name + '-' + week + '-' + day}
           index={auxiliaryIndices[index]}
           name={name}
           weight={weight}
           roundBy={roundBy}
           reps={reps}
           setsCompleted={setsCompleted}
+          updateSetsCompleted={updateSetsCompleted}
           lastSet={lastSet}
           lastSetActual={lastSetActual}
+          updateLastSetActual={updateLastSetActual}
           category="auxiliary"
           week={week}
           day={day}
           format={format}
           db={db}
           uid={uid}
-          refresh={refreshData}
         />
       )}
       <div className="divider">accessory</div>
       {accessoryLifts.map(({ name, sets, setsCompleted, reps, weight }, index) => (
         <Lift
+          key={index + '-accessory-' + name + '-' + week + '-' + day}
           index={index}
           name={name}
           weight={weight}
           sets={sets}
           setsCompleted={setsCompleted}
+          updateSetsCompleted={updateSetsCompleted}
           reps={reps}
           category="accessory"
           week={week}
           day={day}
           db={db}
           uid={uid}
-          refresh={refreshData}
         />
       ))}
       {addAccessoryLift && (<form onSubmit={submitAccessoryLift}>
@@ -224,26 +270,27 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           </button>
         </div>
       </form>)}
-      {!addAccessoryLift && (<button className="btn btn-outline w-full" onClick={() => setAddAccessoryLift(!addAccessoryLift)}>
+      {!addAccessoryLift && (<button className="btn btn-outline w-full border-accent" onClick={() => setAddAccessoryLift(!addAccessoryLift)}>
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256">
           <path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z" />
         </svg>
       </button>)}
-      <div className="flex flex-row flex-wrap justify-between fixed bottom-0 left-0 right-0 p-4">
+      <div className="pb-36"></div>
+      <div className="flex flex-row flex-wrap justify-between fixed bottom-0 left-0 right-0 p-3 bg-primary">
         <div className="join xs:order-1">
-          <button className="btn join-item" onClick={() => changeWeek(-1)}>{'<<'}</button>
-          <button className="btn join-item" onClick={() => changeDay(-1)}>{'<'}</button>
+          <button className="btn join-item bg-accent border-accent" onClick={() => changeWeek(-1)}>{'<<'}</button>
+          <button className="btn join-item bg-accent border-accent" onClick={() => changeDay(-1)}>{'<'}</button>
         </div>
-        <button className="btn -order-1 xs:order-2 mb-1 xs:mb-0 min-w-full xs:min-w-max" onClick={()=>document.getElementById('jump_modal').showModal()}>jump</button>
+        <button className="btn -order-1 xs:order-2 mb-1 xs:mb-0 min-w-full xs:min-w-max bg-accent border-accent" onClick={()=>document.getElementById('jump_modal').showModal()}>jump</button>
         <dialog id="jump_modal" className="modal w-auto">
           <div className="modal-box">
             <form method="dialog">
               <div className="flex flex-wrap mt-4">
                 {((Array.from({ length: 19 }, (_, index) => index))).map((i) => (
-                  <div className="inline-flex flex-1 m-1 join join-vertical sm:join-horizontal">
+                  <div key={'jump-week-' + i} className="inline-flex flex-1 m-1 join join-vertical sm:join-horizontal">
                     <button className="btn btn-disabled sm:mr-1 join-item flex-1">W{i}</button>
                     {((Array.from({ length: format }, (_, index) => index))).map((j) => 
-                      (<JumpButton week={week} day={day} i={i} j={j} jumpTo={jumpTo} />)
+                      (<JumpButton key={'jump-' + j} week={week} day={day} i={i} j={j} jumpTo={jumpTo} />)
                     )}
                   </div>)
                 )}
@@ -254,8 +301,8 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           </div>
         </dialog>
         <div className="join xs:order-3">
-          <button className="btn join-item" onClick={() => changeDay(1)}>{'>'}</button>
-          <button className="btn join-item" onClick={() => changeWeek(1)}>{'>>'}</button>
+          <button className="btn join-item bg-accent border-accent" onClick={() => changeDay(1)}>{'>'}</button>
+          <button className="btn join-item bg-accent border-accent" onClick={() => changeWeek(1)}>{'>>'}</button>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import LogIn from './LogIn';
 import Lifts from './Lifts';
 import Profile from './Profile';
 import Settings from './Settings';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, update } from "firebase/database";
 import { getAuth, browserLocalPersistence, setPersistence } from "firebase/auth";
@@ -22,6 +22,17 @@ const db = getDatabase();
   await setPersistence(auth, browserLocalPersistence);
 })();
 
+function savePos (w, d, uid, dbRef) {
+  const updates = {};
+  updates[`/users/${uid}/pos/`] = { week: w, day: d };
+
+  update(dbRef, updates)
+    .then(() => console.log('updated w,d'))
+    .catch((error) => console.log(error));
+}
+
+const debouncedSavePos = debounce(savePos, 3000);
+
 function App() {
   const [pageBody, setPageBody] = useState('LogIn');
   const [user, setUser] = useState(null);
@@ -34,31 +45,18 @@ function App() {
     if (user && 'uid' in user) setUid(user.uid);
   }, [user]);
 
-  const savePos = (w, d) => {
-    const dbRef = ref(db);
-    
-    const updates = {};
-    updates[`/users/${uid}/pos/`] = { week: w, day: d };
-    
-    update(dbRef, updates)
-      .then(() => console.log('updated w,d'))
-      .catch((error) => console.log(error));
-  };
-
-  const debouncedSavePos = debounce(savePos, 3000);
-
-  const setWeekDay = useCallback((w, d = day) => {
+  const setWeekDay = (w, d = day) => {
     setWeek(w);
     setDay(d);
 
-    debouncedSavePos(w, d);
-  }, []);
+    debouncedSavePos(w, d, uid, ref(db));
+  };
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen bg-primary">
       {user && (<NavBar auth={auth} setUser={setUser} pageBody={pageBody} setPageBody={setPageBody} week={week} day={day} />)}
 
-      <div className="">
+      <div className="bg-primary">
         {
           (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
           (pageBody === 'Lifts' && <Lifts db={db} uid={uid} week={week} day={day} setWeekDay={setWeekDay} />) ||

@@ -14,14 +14,14 @@ function makeNewRoutine(primaryLifts, auxiliaryLifts) {
     const auxLastSet = programming.auxiliary.lastSet[i];
     const auxIntesity = programming.auxiliary.intensity[i];
   
-    const priLifts = [];
-    const auxLifts = [];
+    const primary = [];
+    const auxiliary = [];
 
     for (let j = 0; j < primaryLifts.length; j++) {
       const { name, weight } = primaryLifts[j];
       const trainingWeight = weight * priIntesity;
 
-      priLifts.push({
+      primary.push({
         name,
         weight: trainingWeight,
         setsCompleted: 0,
@@ -34,7 +34,7 @@ function makeNewRoutine(primaryLifts, auxiliaryLifts) {
       const { name, weight } = auxiliaryLifts[j];
       const trainingWeight = weight * auxIntesity;
 
-      auxLifts.push({
+      auxiliary.push({
         name,
         weight: trainingWeight,
         setsCompleted: 0,
@@ -43,33 +43,33 @@ function makeNewRoutine(primaryLifts, auxiliaryLifts) {
       });
     }
 
-    weeks.push({ primaryLifts: priLifts, auxiliaryLifts: auxLifts });
+    weeks.push({ primary, auxiliary });
   }
 
   return weeks;
 }
 
-function formatWeek(format, { primaryLifts, auxiliaryLifts }) {
+function formatWeek(format, { primary, auxiliary }) {
   const schedule = schedules[format];
   const week = [];
 
   for (let i = 0; i < schedule.length; i++) {
-    const primary = [];
-    const auxiliary = [];
+    const primaryLifts = [];
+    const auxiliaryLifts = [];
 
     if ('primary' in schedule[i]) {
       for (let j = 0; j < schedule[i].primary.length; j++) {
         const lift = schedule[i].primary[j];
-        primary.push(primaryLifts[lift]);
+        primaryLifts.push(primary[lift]);
       }
     }
     if ('auxiliary' in schedule[i]) {
       for (let j = 0; j < schedule[i].auxiliary.length; j++) {
         const lift = schedule[i].auxiliary[j];
-        auxiliary.push(auxiliaryLifts[lift]);
+        auxiliaryLifts.push(auxiliary[lift]);
       }
     }
-    week.push({ primary, auxiliary });
+    week.push({ primary: primaryLifts, auxiliary: auxiliaryLifts });
   }
 
   return week;
@@ -78,10 +78,6 @@ function formatWeek(format, { primaryLifts, auxiliaryLifts }) {
 function updateWeight(category, week, updatedTM) {
   const intensity = programming[category]['intensity'][week];
   return updatedTM * intensity;
-}
-
-function getPotentialLifts(day, category, format) {
-  return schedules[format][day][category];
 }
 
 function roundWeight(weight, x) {
@@ -114,4 +110,4 @@ function getIndices(format, day, category) {
   return schedules[format][day][category];
 }
 
-export { makeNewRoutine, formatWeek, updateWeight, getPotentialLifts, roundWeight, getIndices };
+export { makeNewRoutine, formatWeek, updateWeight, roundWeight, getIndices };

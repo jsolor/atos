@@ -5,7 +5,7 @@ import Lift from './Lift';
 
 function JumpButton({ week, day, i, j, jumpTo }) {
   const isCurrentDay = week === i && day === j;
-  const buttonClasses = `btn ${isCurrentDay ? 'btn-active' : ''} join-item flex-1`;
+  const buttonClasses = `btn ${isCurrentDay ? 'btn-active' : ''} flex-1 join-item p-0`;
   return (
     <button 
       className={buttonClasses}
@@ -287,8 +287,8 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
             <form method="dialog">
               <div className="flex flex-wrap mt-4">
                 {((Array.from({ length: 19 }, (_, index) => index))).map((i) => (
-                  <div key={'jump-week-' + i} className="inline-flex flex-1 m-1 join join-vertical sm:join-horizontal">
-                    <button className="btn btn-disabled sm:mr-1 join-item flex-1">W{i}</button>
+                  <div key={'jump-week-' + i} className="flex flex-1 mb-1 join w-full min-w-full">
+                    <button className="btn btn-disabled flex-1 join-item p-0">W{i}</button>
                     {((Array.from({ length: format }, (_, index) => index))).map((j) => 
                       (<JumpButton key={'jump-' + j} week={week} day={day} i={i} j={j} jumpTo={jumpTo} />)
                     )}

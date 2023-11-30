@@ -254,7 +254,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           <input className="flex-1 input text-end text-xl w-2/4 ml-1" name="acc-weight" type="number" placeholder="weight" required />
         </div>
         <div className="flex justify-between w-full mb-2">
-          <input className="flex-1 input text-lg w-2/4 mr-1" name="acc-sets" type="text" placeholder="sets" required />
+          <input className="flex-1 input text-lg w-2/4 mr-1" name="acc-sets" type="number" placeholder="sets" required />
           <input className="flex-1 input text-end text-lg w-2/4 ml-1" name="acc-reps" type="number" placeholder="reps" required />
         </div>
         <div className="flex flex-nowrap w-full space-x-1">

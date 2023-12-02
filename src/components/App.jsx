@@ -84,7 +84,7 @@ function App() {
           (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
           (pageBody === 'Lifts' && <Lifts dbRef={dbRef} uid={uid} week={week} day={day} setWeekDay={setWeekDay} />) ||
           (pageBody === 'Profile' && <Profile dbRef={dbRef} uid={uid} />) ||
-          (pageBody === 'Settings' && <Settings db={db} uid={uid} />)
+          (pageBody === 'Settings' && <Settings db={db} uid={uid} redirect={() => setPageBody('Lifts')} />)
         }
       </div>
     </div>

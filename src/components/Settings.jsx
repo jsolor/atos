@@ -16,7 +16,7 @@ function Settings({ db, uid, redirect }) {
       {!routineSetup && (<div>
         <ul className="menu bg-base-200 w-full rounded-box">
           <li className="menu-title">Routine</li>
-          <li onClick={() => setRoutineSetup(true)}><a onClick={() => console.log('1 a c')}>New</a></li>
+          <li onClick={() => setRoutineSetup(true)}><a>New</a></li>
           <li onClick={()=>document.getElementById('delete_modal').showModal()}><a>Delete</a></li>
         </ul>
         <dialog id="delete_modal" className="modal">

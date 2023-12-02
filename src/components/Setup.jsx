@@ -8,8 +8,19 @@ function LiftEntry({ category, n }) {
   
   return (
     <div className={`flex flex-1 flex-wrap ${category === 'pri' ? 'md:mr-2' : ''}`}>
-      <input type="text" placeholder="name" name={nameId} required className="input input-bordered flex w-full mb-1" />
-      <input type="number" placeholder="training max" name={weightId} required className="input input-bordered flex w-full mb-1" />
+      <input 
+        type="text" 
+        placeholder="name" 
+        name={nameId} 
+        className={`input input-bordered flex w-full mb-1 ${category === 'aux' ? 'text-end' : ''}`}
+        required
+      />
+      <input type="number"
+        placeholder="training max"
+        name={weightId}
+        className={`input input-bordered flex w-full mb-1 ${category === 'aux' ? 'text-end' : ''}`}
+        required
+      />
     </div>
   );
 }
@@ -41,11 +52,11 @@ function LiftForm({ n }) {
     <div>
       <div className="flex flex-col md:flex-row mb-5 justify-between">
         <div className="flex flex-wrap content-start">
-          <a className="label w-full">pri</a>
+          <a className="label w-full">primary</a>
           <LiftEntry category={'pri'} n={n} />
         </div>
         <div className="flex flex-wrap">
-          <a className="label w-full justify-end">aux</a>
+          <a className="label w-full justify-end">auxiliary</a>
           <div className="flex flex-col flex-1">
             <LiftEntry category={'aux'} n={a1} />
             {n <= 1 && <LiftEntry category={'aux'} n={a2} />}
@@ -56,9 +67,10 @@ function LiftForm({ n }) {
   );
 }
 
-function Setup({ db, uid, setRoutineSetup }) {
+function Setup({ db, uid, setRoutineSetup, redirect }) {
   const [daysPerWeek, setDaysPerWeek] = useState(null);
   const [roundBy, setRoundBy] = useState(null);
+
   const submitNewRoutineForm = (e) => {
     e.preventDefault();
     
@@ -79,20 +91,25 @@ function Setup({ db, uid, setRoutineSetup }) {
     }
 
     const routine = makeNewRoutine(primary, auxiliary);
-    set(ref(db, `users/${uid}`), {
+    const data = {
       format: daysPerWeek,
       roundBy,
       routine,
-      pos: { 
-        week: 0,
-        day: 0
-      },
+      week: 0,
+      day: 0,
       lifts: {
         primary,
         auxiliary
       }
-    })
+    };
+    set(ref(db, `users/${uid}`), data)
       .then(() => console.log('new routine saved'))
+      .then(() => {
+        for (const key in data) {
+          localStorage.setItem(key, JSON.stringify(data[key]));
+        }
+      })
+      .then(() => redirect())
       .catch((error) => console.log(error));
   };
 
@@ -102,27 +119,32 @@ function Setup({ db, uid, setRoutineSetup }) {
       .then((snapshot) => snapshot.val())
       .then(({ primary, auxiliary }) => {
         const routine = makeNewRoutine(primary, auxiliary);
-        return set(ref(db, `/users/${uid}`), {
+        const data = {
           format: daysPerWeek,
           roundBy,
           routine,
-          pos: {
-            week: 0,
-            day: 0
-          },
+          week: 0,
+          day: 0,
           lifts: {
             primary,
             auxiliary
           }
-        });
+        };
+
+        for (const key in data) {
+          localStorage.setItem(key, JSON.stringify(data[key]));
+        }
+
+        return set(ref(db, `/users/${uid}`), data);
       })
       .then(() => console.log('new routine saved'))
+      .then(() => redirect())
       .catch((error) => console.log(error));
   };
 
   return (
-    <div className="w-10/12 mx-auto">
-      <h1 className="text-center text-xl">new routine setup</h1>
+    <div className="mt-8">
+      <h1 className="text-center text-xl">New Routine Setup</h1>
       <div className="my-3" onChange={(e) => setDaysPerWeek(Number(e.target.value))}>
         <a>lift </a>
         <select required name="select" className="select select-bordered">
@@ -145,10 +167,10 @@ function Setup({ db, uid, setRoutineSetup }) {
       </div>
       {(daysPerWeek && roundBy) && (<div>
         <form onSubmit={submitNewRoutineForm}>
-          <div className="divider">enter lifts and training maxes</div> 
-          <div className="">
+          <div className="divider mb-12 flex-wrap justify-center text-sm xs:text-base">enter lifts & training maxes</div> 
+          <div>
             {[0, 1, 2, 3].map((i) => (
-              <LiftForm n={i} />
+              <LiftForm key={'LF-' + i} n={i} />
             ))}
           </div>
           <div className="flex justify-between w-full mt-4">
@@ -157,7 +179,7 @@ function Setup({ db, uid, setRoutineSetup }) {
           </div>
           <div className="divider">or</div> 
         </form>
-        <button className="btn w-full mb-5" onClick={routineRefresh}>use current lifts and training maxes</button>
+        <button className="btn btn-outline w-full mb-5" onClick={routineRefresh}>use current lifts and training maxes</button>
       </div>)}
     </div>
   );

@@ -18,9 +18,11 @@ function JumpButton({ week, day, i, j, jumpTo }) {
   );
 }
 
-function refreshRoutine(setFormattedRoutine) {
+function refreshRoutine(setFormattedRoutine, redirect) {
   const routine = [];
   const rawRoutine = JSON.parse(localStorage.getItem('routine'));
+  if (!rawRoutine) return redirect();
+
   const f = Number(localStorage.getItem('format'));
   
   for (let i = 0; i < 19; i++) {
@@ -30,7 +32,7 @@ function refreshRoutine(setFormattedRoutine) {
   setFormattedRoutine(routine);
 }
 
-function Lifts({ dbRef, uid, week, day, setWeekDay }) {
+function Lifts({ dbRef, uid, week, day, setWeekDay, redirect }) {
   const [formattedRoutine, setFormattedRoutine] = useState([]);
   const [format, setFormat] = useState(3);
   const [roundBy, setRoundBy] = useState(5);
@@ -43,7 +45,7 @@ function Lifts({ dbRef, uid, week, day, setWeekDay }) {
 
   useEffect(() => {
     if (uid) {
-      refreshRoutine(setFormattedRoutine);
+      refreshRoutine(setFormattedRoutine, redirect);
       
       setFormat(Number(localStorage.getItem('format')));
       setRoundBy(Number(localStorage.getItem('roundBy')));

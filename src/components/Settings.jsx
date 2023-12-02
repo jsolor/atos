@@ -8,6 +8,7 @@ function Settings({ db, uid, redirect }) {
   const deleteRoutine = () => {
     remove(ref(db, `/users/${uid}/routine`))
       .then(() => console.log('successfully deleted routine'))
+      .then(() => localStorage.removeItem('routine'))
       .catch((error) => console.log(error));
   };
 

@@ -46,9 +46,9 @@ function Profile({ db, uid }) {
                 <th>Estimated Training Max</th>
               </tr>
             </thead>
-            <tbody>
-              {primaryActive && (primaryLifts).map(({ name, weight }) => <LiftRow name={name} weight={weight} />)}
-              {!primaryActive && (auxiliaryLifts).map(({ name, weight }) => <LiftRow name={name} weight={weight} />)}
+            <tbody className="bg-accent">
+              {primaryActive && (primaryLifts).map(({ name, weight }, i) => <LiftRow key={'table-primary-' + name + '-' + i} name={name} weight={weight} />)}
+              {!primaryActive && (auxiliaryLifts).map(({ name, weight }, i) => <LiftRow key={'table-auxiliary-' + name + '-' + i} name={name} weight={weight} />)}
             </tbody>
           </table>
         </div>

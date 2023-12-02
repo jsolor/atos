@@ -2,16 +2,8 @@ import { ref, remove } from 'firebase/database';
 import { useState } from 'react';
 import Setup from './Setup';
 
-function Settings({ db, uid }) {
+function Settings({ db, uid, redirect }) {
   const [routineSetup, setRoutineSetup] = useState(false);
-  const newStyle = {
-    color: 'white',
-    backgroundColor: '#005eff'
-  };
-  const deleteStyle = {
-    color: 'white',
-    backgroundColor: '#cb0909'
-  };
 
   const deleteRoutine = () => {
     remove(ref(db, `/users/${uid}/routine`))
@@ -20,9 +12,13 @@ function Settings({ db, uid }) {
   };
 
   return (
-    <div>
-      {!routineSetup && (<div className="flex flex-col sm:flex-row w-10/12 my-8 mx-auto justify-between">
-        <button className="btn" style={deleteStyle} onClick={()=>document.getElementById('delete_modal').showModal()}>delete routine</button>
+    <div className="w-9/12 sm:w-8/12 mx-auto">
+      {!routineSetup && (<div>
+        <ul className="menu bg-base-200 w-full rounded-box">
+          <li className="menu-title">Routine</li>
+          <li onClick={() => setRoutineSetup(true)}><a onClick={() => console.log('1 a c')}>New</a></li>
+          <li onClick={()=>document.getElementById('delete_modal').showModal()}><a>Delete</a></li>
+        </ul>
         <dialog id="delete_modal" className="modal">
           <div className="modal-box">
             <h3 className="font-bold text-lg">Are you sure?</h3>
@@ -33,9 +29,8 @@ function Settings({ db, uid }) {
             </form>
           </div>
         </dialog>
-        <button className="btn" style={newStyle} onClick={() => setRoutineSetup(true)}>new routine</button>
       </div>) ||
-      routineSetup && <Setup db={db} uid={uid} setRoutineSetup={setRoutineSetup} />}
+      routineSetup && <Setup db={db} uid={uid} setRoutineSetup={setRoutineSetup} redirect={redirect} />}
     </div>
   );
 }

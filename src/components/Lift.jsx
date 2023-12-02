@@ -29,7 +29,6 @@ function Lift({ index, name, weight, roundBy, sets = 4, setsCompleted, updateSet
   const [roundedWeight, setRoundedWeight] = useState(null);
   const [isWrapped, setIsWrapped] = useState(null);
   const [count, setCount] = useState(setsCompleted);
-  const [lastSetStyles, setLastSetStyles] = useState(null);
   
   const checkIfWrapped = () => {
     const setButtons = document.getElementById(category + '-' + name + '-set-buttons');
@@ -56,12 +55,8 @@ function Lift({ index, name, weight, roundBy, sets = 4, setsCompleted, updateSet
   useEffect(() => {
     if (lastSetActual ?? false) {
       setLastSetPlaceholder(lastSetActual);
-      setLastSetStyles({
-        'borderColor': 'var(--text-primary)'
-      });
     } else {
       setLastSetPlaceholder(lastSet);
-      setLastSetStyles(null);
     }
   }, [lastSet, lastSetActual]);
 
@@ -136,7 +131,7 @@ function Lift({ index, name, weight, roundBy, sets = 4, setsCompleted, updateSet
   return (
     <div className="mb-8 min-w-min">
       <div className="flex justify-between mb-1">
-        <p className="text-xl italic">{name}</p>
+        <p className="text-xl">{name}</p>
         <p className="text-xl">{roundedWeight}</p>
       </div>
       <div className="flex flex-wrap justify-between max-w-full">
@@ -154,7 +149,7 @@ function Lift({ index, name, weight, roundBy, sets = 4, setsCompleted, updateSet
             />)
           }
         </div>
-        {category !== 'accessory' && <input type="number" className={`input input-bordered flex-1 mt-3 text-end ${isWrapped ? '' : 'ml-2'}`} id={category + '-' + name + '-input'} placeholder={lastSetPlaceholder} onChange={handleChange} style={lastSetStyles} />}
+        {category !== 'accessory' && <input type="number" className={`input input-bordered flex-1 mt-3 text-end ${lastSetActual ?? false ? 'border-success' : ''} ${isWrapped ? '' : 'ml-2'}`} id={category + '-' + name + '-input'} placeholder={lastSetPlaceholder} onChange={handleChange} />}
       </div>
     </div>
   );

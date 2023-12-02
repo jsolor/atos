@@ -186,7 +186,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
 
   return (
     <div className="w-10/12 lg:w-9/12 mx-auto">
-      {primaryLifts.length > 0 && (<div className="divider">primary</div>)}
+      {primaryLifts.length > 0 && (<div className="divider">Primary</div>)}
       {primaryLifts.map(({ name, weight, reps, setsCompleted, lastSet, lastSetActual }, index) => 
         <Lift 
           key={index + '-primary-' + name + '-' + week + '-' + day}
@@ -208,7 +208,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           uid={uid}
         />
       )}
-      {auxiliaryLifts.length > 0 && (<div className="divider">auxiliary</div>)}
+      {auxiliaryLifts.length > 0 && (<div className="divider">Auxiliary</div>)}
       {auxiliaryLifts.map(({ name, weight, reps, setsCompleted, lastSet, lastSetActual }, index) => 
         <Lift
           key={index + '-auxiliary-' + name + '-' + week + '-' + day}
@@ -230,7 +230,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           uid={uid}
         />
       )}
-      <div className="divider">accessory</div>
+      <div className="divider">Accessory</div>
       {accessoryLifts.map(({ name, sets, setsCompleted, reps, weight }, index) => (
         <Lift
           key={index + '-accessory-' + name + '-' + week + '-' + day}
@@ -270,13 +270,13 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           </button>
         </div>
       </form>)}
-      {!addAccessoryLift && (<button className="btn btn-outline w-full border-accent" onClick={() => setAddAccessoryLift(!addAccessoryLift)}>
+      {!addAccessoryLift && (<button className="btn btn-outline w-full border-secondary" onClick={() => setAddAccessoryLift(!addAccessoryLift)}>
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256">
           <path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8Z" />
         </svg>
       </button>)}
       <div className="pb-36"></div>
-      <div className="flex flex-row flex-wrap justify-between fixed bottom-0 left-0 right-0 p-3 bg-primary">
+      <div className="flex flex-row flex-wrap justify-between fixed bottom-0 left-0 right-0 w-screen p-3 mb-3 bg-primary">
         <div className="join xs:order-1">
           <button className="btn join-item bg-accent border-accent" onClick={() => changeWeek(-1)}>{'<<'}</button>
           <button className="btn join-item bg-accent border-accent" onClick={() => changeDay(-1)}>{'<'}</button>

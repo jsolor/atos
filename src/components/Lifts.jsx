@@ -3,21 +3,6 @@ import { update } from 'firebase/database';
 import { formatWeek, getIndices } from '../routine';
 import Lift from './Lift';
 
-function JumpButton({ week, day, i, j, jumpTo }) {
-  const isCurrentDay = week === i && day === j;
-  const buttonClasses = `btn ${isCurrentDay ? 'btn-active' : ''} flex-1 join-item p-0`;
-  return (
-    <button 
-      className={buttonClasses}
-      onClick={jumpTo}
-      aria-rowindex={i}
-      aria-colindex={j}
-    >
-      {j}
-    </button>
-  );
-}
-
 function refreshRoutine(setFormattedRoutine, redirect) {
   const routine = [];
   const rawRoutine = JSON.parse(localStorage.getItem('routine'));

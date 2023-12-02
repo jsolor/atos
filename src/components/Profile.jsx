@@ -1,4 +1,4 @@
-import { child, get, getDatabase, ref } from "firebase/database";
+import { child, get } from "firebase/database";
 import { useEffect, useState } from "react";
 
 function LiftRow({ name, weight }) {
@@ -10,7 +10,7 @@ function LiftRow({ name, weight }) {
   )
 }
 
-function Profile({ db, uid }) {
+function Profile({ dbRef, uid }) {
   const [primaryActive, setPrimaryActive] = useState(true);
   const [primaryLifts, setPrimaryLifts] = useState([]);
   const [auxiliaryLifts, setAuxiliaryLifts] = useState([]);
@@ -20,7 +20,6 @@ function Profile({ db, uid }) {
   };
 
   useEffect(() => {
-    const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${uid}/lifts`))
       .then((snapshot) => snapshot.val())
       .then(({ primary, auxiliary }) => {
@@ -28,7 +27,7 @@ function Profile({ db, uid }) {
         setAuxiliaryLifts(auxiliary);
       })
       .catch((error) => console.log(error));
-  }, [db, uid]);
+  }, [dbRef, uid]);
   
   return (
     <div>

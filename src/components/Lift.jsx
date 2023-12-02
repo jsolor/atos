@@ -1,4 +1,4 @@
-import { child, get, ref, update } from 'firebase/database';
+import { child, get, update } from 'firebase/database';
 import { multipliers } from '../data/workout.json';
 import { useEffect, useState } from 'react';
 import { updateWeight, roundWeight } from '../routine';
@@ -24,7 +24,7 @@ function SetButton({ reps, count, setCount, category, index, buttonIndex, update
   );
 }
 
-function Lift({ index, name, weight, roundBy, sets = 4, setsCompleted, updateSetsCompleted, reps, lastSet, lastSetActual, updateLastSetActual, category, week, day, format, db, uid }) {
+function Lift({ index, name, weight, roundBy, sets = 4, setsCompleted, updateSetsCompleted, reps, lastSet, lastSetActual, updateLastSetActual, category, week, day, dbRef, uid }) {
   const [lastSetPlaceholder, setLastSetPlaceholder] = useState(null);
   const [roundedWeight, setRoundedWeight] = useState(null);
   const [isWrapped, setIsWrapped] = useState(null);
@@ -96,7 +96,6 @@ function Lift({ index, name, weight, roundBy, sets = 4, setsCompleted, updateSet
     const multiplier = multipliers[m];
     
     if (multiplier !== 1) {
-      const dbRef = ref(db);
       const updates = {};
 
       get(child(dbRef, `users/${uid}/lifts/${category}`))
@@ -116,7 +115,7 @@ function Lift({ index, name, weight, roundBy, sets = 4, setsCompleted, updateSet
         .then((updates) => {
           update(dbRef, updates)
         })
-        .then(() => console.log('updated successfully'))
+        .then(() => console.log('updated lsa successfully'))
         .catch((error) => console.log(error));
     }
     updateLastSetActual(category, index, val);

@@ -80,7 +80,7 @@ function Setup({ db, uid, setRoutineSetup }) {
 
     const routine = makeNewRoutine(primary, auxiliary);
     set(ref(db, `users/${uid}`), {
-      days: daysPerWeek,
+      format: daysPerWeek,
       roundBy,
       routine,
       pos: { 
@@ -103,7 +103,7 @@ function Setup({ db, uid, setRoutineSetup }) {
       .then(({ primary, auxiliary }) => {
         const routine = makeNewRoutine(primary, auxiliary);
         return set(ref(db, `/users/${uid}`), {
-          days: daysPerWeek,
+          format: daysPerWeek,
           roundBy,
           routine,
           pos: {

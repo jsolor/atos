@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { child, get, ref, update } from 'firebase/database';
+import { update } from 'firebase/database';
 import { formatWeek, getIndices } from '../routine';
 import Lift from './Lift';
 
@@ -18,8 +18,19 @@ function JumpButton({ week, day, i, j, jumpTo }) {
   );
 }
 
-function Lifts({ db, uid, week, day, setWeekDay }) {
-  const [data, setData] = useState(null);
+function refreshRoutine(setFormattedRoutine) {
+  const routine = [];
+  const rawRoutine = JSON.parse(localStorage.getItem('routine'));
+  const f = Number(localStorage.getItem('format'));
+  
+  for (let i = 0; i < 19; i++) {
+    routine.push(formatWeek(f + 'x', rawRoutine[i]));
+  }
+  console.log('routine refreshed');
+  setFormattedRoutine(routine);
+}
+
+function Lifts({ dbRef, uid, week, day, setWeekDay }) {
   const [formattedRoutine, setFormattedRoutine] = useState([]);
   const [format, setFormat] = useState(3);
   const [roundBy, setRoundBy] = useState(5);
@@ -32,30 +43,12 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
 
   useEffect(() => {
     if (uid) {
-      const dbRef = ref(db);
-      get(child(dbRef, `users/${uid}`))
-        .then((snapshot) => {
-          setData(snapshot.val());
-        })
-        .then(() => console.log('data refreshed'))
-        .catch((error) => console.log(error));
-    }
-  }, [db, uid]);
-
-  useEffect(() => {
-    if (data && 'routine' in data) {
-      const routine = [];
+      refreshRoutine(setFormattedRoutine);
       
-      for (let i = 0; i < data.routine.length; i++) {
-        routine.push(formatWeek(data.days + 'x', data.routine[i]));
-      }
-
-      setFormat(data.days);
-      setFormattedRoutine(routine);
-      setRoundBy(data.roundBy);
-      setWeekDay(data.pos.week, data.pos.day);
+      setFormat(Number(localStorage.getItem('format')));
+      setRoundBy(Number(localStorage.getItem('roundBy')));
     }
-  }, [data]);
+  }, [uid]);
 
   useEffect(() => {
     if ((week !== null) && (day !== null)) {
@@ -72,12 +65,13 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
         } else {
           setAuxiliaryLifts([]);
         }
-        if ('accessory' in data['routine'][week] && day in data['routine'][week]['accessory']) {
-          setAccessoryLifts(data['routine'][week]['accessory'][day]);
+        const parsedWeek = JSON.parse(localStorage.getItem('routine'))[week];
+        if ('accessory' in parsedWeek && day in parsedWeek.accessory) {
+          setAccessoryLifts(parsedWeek.accessory[day]);
         } else setAccessoryLifts([]);
       }
     }
-  }, [formattedRoutine, week, day]);
+  }, [formattedRoutine, week, day, format]);
 
   const cancelAccessoryLift = (e) => {
     e.preventDefault();
@@ -87,7 +81,9 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
 
   const submitAccessoryLift = (e) => {
     e.preventDefault();
-
+    
+    const routine = JSON.parse(localStorage.getItem('routine'));
+    const updates = {};
     const accessoryName = e.target['acc-name'].value;
     const accessoryWeight = Number(e.target['acc-weight'].value);
     const accessorySets = Number(e.target['acc-sets'].value);
@@ -100,31 +96,27 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
       reps: accessoryReps
     };
     
-    setData((prevData) => {
-      const newData = JSON.parse(JSON.stringify(prevData));
-      const accessoryCheck = newData.routine[week].accessory;
-      
-      if (accessoryCheck) {
-        newData.routine[week].accessory[day] = [...accessoryCheck[day], accessory];
+    if ('accessory' in routine[week]) {
+      if (day in routine[week].accessory) {
+        routine[week].accessory[day].push(accessory);
       } else {
-        const daysAccesories = {};
-        daysAccesories[day] = [accessory];
-        newData.routine[week].accessory = daysAccesories;
+        routine[week].accessory[day] = [accessory];
       }
+    } else {
+      routine[week].accessory = {};
+      routine[week].accessory[day] = [accessory];
+    }
 
-      const dbRef = ref(db);
-      const updates = {};
+    localStorage.setItem('routine', JSON.stringify(routine));
 
-      updates[`/users/${uid}/routine/${week}/accessory/${day}`] = newData.routine[week].accessory[day];
-      updates[`/users/${uid}/lifts/accessory/${accessoryName}`] = true;
+    updates[`/users/${uid}/routine/${week}/accessory/${day}`] = routine[week].accessory[day];
+    updates[`/users/${uid}/lifts/accessory/${accessoryName}`] = true;
 
-      update(dbRef, updates)
-        .then(() => console.log('updated successfully'))
-        .catch((error) => console.log(error));
-      
-      return newData;
-    });
-    
+    update(dbRef, updates)
+      .then(() => console.log('updated successfully'))
+      .then(() => setAccessoryLifts((oldLifts) => [...oldLifts, accessory]))
+      .catch((error) => console.log(error));
+          
     setAddAccessoryLift(false);
   };
 
@@ -157,31 +149,34 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
     const endPoint = category === 'accessory' ? `/${day}/${index}/setsCompleted` : `/${index}/setsCompleted`;
     const path = `/users/${uid}/routine/${week}/${category}` + endPoint;
 
-    const dbRef = ref(db);
-  
     const updates = {};
     updates[path] = count;
     
     update(dbRef, updates)
       .then(() => console.log('updated sets completed'))
-      .then(() => setData((oldData) => {
-        const newData = { ...oldData };
-        
-        if (category === 'accessory' ) newData.routine[week][category][day][index]['setsCompleted'] = count;
-        else newData.routine[week][category][index]['setsCompleted'] = count;
+      .then(() => {
+        const routine = JSON.parse(localStorage.getItem('routine'));
 
-        return newData;
-      }))
+        if (category === 'accessory') {
+          routine[week][category][day][index].setsCompleted = count;
+        } else {
+          routine[week][category][index].setsCompleted = count;
+        }
+
+        localStorage.setItem('routine', JSON.stringify(routine));
+      })
+      .then(() => refreshRoutine(setFormattedRoutine))
       .catch((error) => console.log(error));
   };
 
   const updateLastSetActual = (category, index, val) => {
-    setData((oldData) => {
-      const newData = JSON.parse(JSON.stringify(oldData));
-      newData.routine[week][category][index]['lastSetActual'] = val;
+    const routine = JSON.parse(localStorage.getItem('routine'));
 
-      return newData;
-    });
+    routine[week][category][index].lastSetActual = val;
+    
+    localStorage.setItem('routine', JSON.stringify(routine));
+    
+    refreshRoutine(setFormattedRoutine);
   };
 
   return (
@@ -203,8 +198,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           category="primary"
           week={week}
           day={day}
-          format={format}
-          db={db}
+          dbRef={dbRef}
           uid={uid}
         />
       )}
@@ -225,8 +219,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           category="auxiliary"
           week={week}
           day={day}
-          format={format}
-          db={db}
+          dbRef={dbRef}
           uid={uid}
         />
       )}
@@ -244,7 +237,7 @@ function Lifts({ db, uid, week, day, setWeekDay }) {
           category="accessory"
           week={week}
           day={day}
-          db={db}
+          dbRef={dbRef}
           uid={uid}
         />
       ))}

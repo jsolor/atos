@@ -5,7 +5,7 @@ import Profile from './Profile';
 import Settings from './Settings';
 import { useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, update } from "firebase/database";
+import { child, get, getDatabase, ref, update } from "firebase/database";
 import { getAuth, browserLocalPersistence, setPersistence } from "firebase/auth";
 import debounce from '../debounce';
 
@@ -17,14 +17,16 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getDatabase();
+const dbRef = ref(db);
 
 (async () => {
   await setPersistence(auth, browserLocalPersistence);
 })();
 
-function savePos (w, d, uid, dbRef) {
+function savePos (w, d, uid) {
   const updates = {};
-  updates[`/users/${uid}/pos/`] = { week: w, day: d };
+  updates[`/users/${uid}/week/`] = w;
+  updates[`/users/${uid}/day/`] = d;
 
   update(dbRef, updates)
     .then(() => console.log('updated w,d'))
@@ -45,11 +47,32 @@ function App() {
     if (user && 'uid' in user) setUid(user.uid);
   }, [user]);
 
+  useEffect(() => {
+    if (uid) {
+      get(child(dbRef, `users/${uid}`))
+        .then((snapshot) => {
+          const userData = snapshot.val();
+
+          for (const key in userData) {
+            localStorage.setItem(key, JSON.stringify(userData[key]));
+          }
+          
+          setWeek(userData.week);
+          setDay(userData.day);
+        })
+        .then(() => console.log('data loaded'))
+        .catch((error) => console.log(error));
+    }
+  }, [uid]);
+
   const setWeekDay = (w, d = day) => {
     setWeek(w);
     setDay(d);
 
-    debouncedSavePos(w, d, uid, ref(db));
+    localStorage.setItem('week', w);
+    localStorage.setItem('day', d);
+
+    debouncedSavePos(w, d, uid);
   };
 
   return (
@@ -59,8 +82,8 @@ function App() {
       <div className="bg-primary">
         {
           (pageBody === 'LogIn' && <LogIn auth={auth} setUser={setUser} setPageBody={setPageBody} />) ||
-          (pageBody === 'Lifts' && <Lifts db={db} uid={uid} week={week} day={day} setWeekDay={setWeekDay} />) ||
-          (pageBody === 'Profile' && <Profile db={db} uid={uid} />) ||
+          (pageBody === 'Lifts' && <Lifts dbRef={dbRef} uid={uid} week={week} day={day} setWeekDay={setWeekDay} />) ||
+          (pageBody === 'Profile' && <Profile dbRef={dbRef} uid={uid} />) ||
           (pageBody === 'Settings' && <Settings db={db} uid={uid} />)
         }
       </div>

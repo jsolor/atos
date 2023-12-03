@@ -2,7 +2,7 @@
 
 # atos
 
-A web app adaptation of my workout program designed for personal use.
+A web app adaptation of the workout program I follow designed for personal use.
 
 
 

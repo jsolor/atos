@@ -25,6 +25,8 @@ function NavBar({ auth, setUser, pageBody, setPageBody, week, day }) {
         console.log('sign out successful');
         setUser(null);
         setPageBody('LogIn');
+
+        localStorage.clear();
       })
       .catch((error) => {
         console.log(error);
